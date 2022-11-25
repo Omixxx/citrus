@@ -1,0 +1,7 @@
+{
+  "name": "Citrus",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
