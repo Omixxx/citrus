@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  maria-db:
+    container_name: "maria-db-backend"
+    image: mariadb:10.8-jammy
+    restart: always
+    environment:
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+    ports:
+      - 3306:3306
