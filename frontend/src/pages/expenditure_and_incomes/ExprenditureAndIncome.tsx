@@ -12,6 +12,8 @@ import "./ExpenditureAndIncome.css";
 // todo: fetch from backend
 let myList: string[] = ["cip", "ciop", "ciap"];
 
+//ritorna una lista di nomi
+
 const ExpenditureAndIncome: React.FC = () => {
   return (
     <IonPage>

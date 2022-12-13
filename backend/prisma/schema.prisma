@@ -12,4 +12,74 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   username  String
+  email     String   @unique
+  password  String
+  //check if is account optional or non  
+  account   Account?
+}
+
+model Account {
+  id            Int         @id @default(autoincrement())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  balance       Int         @default(0)
+  owner         User        @relation(fields: [ownerId], references: [id])
+  ownerId       Int         @unique
+  saving_model  SavingModel @relation(fields: [savingModelId], references: [id])
+  savingModelId Int
+  window        Int         @default(0)
+  modifier      Modifier[]
+}
+
+model SavingModel {
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  //Todo: add a "in between 0 - 100" to the percentage field 
+  percentage Int
+  account    Account[]
+}
+
+model Modifier {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  name        String    @unique
+  description String
+  account     Account[]
+}
+
+model Expense {
+  id         Int             @id @default(autoincrement())
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  date       DateTime
+  amount     Int
+  category   ExpenseCategory @relation(fields: [categoryId], references: [id])
+  categoryId Int
+}
+
+model ExpenseCategory {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String    @unique
+  expense   Expense[]
+}
+
+model Income {
+  id         Int            @id @default(autoincrement())
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  date       DateTime
+  amount     Int
+  category   IncomeCategory @relation(fields: [categoryId], references: [id])
+  categoryId Int
+}
+
+model IncomeCategory {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @unique
+  income    Income[]
 }
