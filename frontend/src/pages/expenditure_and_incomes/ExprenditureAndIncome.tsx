@@ -6,13 +6,11 @@ import {
   IonToolbar,
   IonButton,
 } from "@ionic/react";
-import List from "../../components/List";
+import List from "../../components/list/List";
 import "./ExpenditureAndIncome.css";
 
 // todo: fetch from backend
 let myList: string[] = ["cip", "ciop", "ciap"];
-
-//ritorna una lista di nomi
 
 const ExpenditureAndIncome: React.FC = () => {
   return (
