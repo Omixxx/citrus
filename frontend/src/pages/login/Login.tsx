@@ -5,7 +5,9 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonAlert,
 } from "@ionic/react";
+import { log } from "console";
 import React, { useState } from "react";
 import { CustomIonicButton } from "./components/customIonicButton";
 import { CustomIonicInput } from "./components/CustomIonicInput";
@@ -16,7 +18,7 @@ import "./Login.css";
 const Login: React.FC = () => {
   //useState is a hook (a function that allows the component to use various features)
   //in this case allow the component to use state and remember the value of the username and password
-  //
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
@@ -42,12 +44,28 @@ const Login: React.FC = () => {
         onIonChange={(e: any) => setPassword(e.detail.value!)}
       />
       <CustomIonicButton
-        onClick={() => console.log("clicked")}
+        onClick={() =>
+          login(email, password) ? routeToHome() : alert("invalid credentials")
+        }
         disabled="false"
         label="Login"
       />
+      <div className="ion-text-center">don't have an account?</div>
+      <div className="ion-text-center">
+        <a href="/register">Register</a>
+      </div>
     </IonHeader>
   );
 };
+
+function login(email: string, password: string): boolean {
+  console.log(email);
+  console.log(password);
+  return false;
+}
+
+function routeToHome() {
+  console.log("route");
+}
 
 export default Login;
