@@ -5,10 +5,9 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
-  useIonAlert,
 } from "@ionic/react";
-import { log } from "console";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { CustomIonicButton } from "./components/customIonicButton";
 import { CustomIonicInput } from "./components/CustomIonicInput";
 import "./Login.css";
@@ -21,6 +20,7 @@ const Login: React.FC = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
   return (
     <IonHeader>
       <IonToolbar>
@@ -45,7 +45,7 @@ const Login: React.FC = () => {
       />
       <CustomIonicButton
         onClick={() =>
-          login(email, password) ? routeToHome() : alert("invalid credentials")
+          login(email, password) ? history.push("/home") : alert("invalid credentials")
         }
         disabled="false"
         label="Login"
@@ -61,11 +61,10 @@ const Login: React.FC = () => {
 function login(email: string, password: string): boolean {
   console.log(email);
   console.log(password);
-  return false;
+  return true;
 }
 
 function routeToHome() {
-  console.log("route");
 }
 
 export default Login;
