@@ -6,6 +6,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { CustomIonicButton } from "./components/customIonicButton";
@@ -59,12 +60,13 @@ const Login: React.FC = () => {
 };
 
 function login(email: string, password: string): boolean {
-  console.log(email);
-  console.log(password);
-  return true;
-}
-
-function routeToHome() {
+  const axios = require('axios');
+  let sessioCookie = undefined
+  sessioCookie = axios.post(` http://localhost:${process.env.REACT_APP_BACKEND_PORT}/login`, {
+    email: email,
+    password: password
+  });
+  return (sessioCookie != undefined);
 }
 
 export default Login;
