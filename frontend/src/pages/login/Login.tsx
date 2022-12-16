@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 import { CustomIonicButton } from "./components/customIonicButton";
 import { CustomIonicInput } from "./components/CustomIonicInput";
 import "./Login.css";
+import axios from 'axios';
 
 // react functional components do not have state, so we need to use hooks to manage state
 // this is a similar concept to using a class component
@@ -60,7 +61,6 @@ const Login: React.FC = () => {
 };
 
 function login(email: string, password: string): boolean {
-  const axios = require('axios');
   let sessioCookie = undefined
   sessioCookie = axios.post(` http://localhost:${process.env.REACT_APP_BACKEND_PORT}/login`, {
     email: email,
