@@ -3,6 +3,10 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
+import { tokenInterceptorRequest, tokenInterceptorResponse } from "./services/tokenInterceptor";
+
+tokenInterceptorRequest();
+tokenInterceptorResponse()
 
 const container = document.getElementById("root");
 const root = createRoot(container!);

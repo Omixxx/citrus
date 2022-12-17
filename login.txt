@@ -1,0 +1,21 @@
+quarda gli interceptor in react, e jwt per il backend, inotre devi vedere come conservare informazioni 
+sul dispositivo con capacitor 
+
+1 il forntend manda una richiesta di login, se l'utente non è presente non gli permette di loggare 
+
+2 se l'utente è presente gli permette di loggare e gli manda un token jwt (che conterrà anche l'id dell'utente)
+
+3 il token jwt viene salvato sul dispositivo 
+
+4 il token jwt viene usato per le richieste successive. tutte le richieste avrenno questo token, 
+il backend userà questo token per verificare se l'utente è loggato o meno, in primo luogo, e in secondo 
+luogo per identificare l'utente. 
+
+5 importante implementare l'interceptor per le richieste, cosi da filtrare le richieste e se 
+capitasse che il token non fosse valido, o scaduto, o non presente, allora si deautentica l'utente e si 
+rimouve il token dal dispositivo.
+
+
+6 se l'utente vuole fare il logout, il token jwt viene cancellato dal dispositivo 
+
+
