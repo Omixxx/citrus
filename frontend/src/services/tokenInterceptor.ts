@@ -4,7 +4,7 @@ import storageManager from '../services/device/storageManager';
 export function tokenInterceptorRequest(): any {
   axios.interceptors.request.use(function(config: any) {
     const token = storageManager.getJwtToken();
-    config.headers.Authorization = token ? `${token}` : '';
+    config.headers.token = token ? `${token}` : '';
     return config;
   }, function(error) {
     // Do something with request error
