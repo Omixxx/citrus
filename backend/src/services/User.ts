@@ -1,6 +1,6 @@
 import { db } from "../config/db.server";
 
-export const ServiceQueryUserByEmailAddress = (email: string) => {
+export function queryUserByEmailAddress(email: string) {
   return db.user.findUnique({
     where: {
       email: email,
@@ -8,12 +8,8 @@ export const ServiceQueryUserByEmailAddress = (email: string) => {
   });
 };
 
-export const ServiceInsertUser = (
-  username: string,
-  email: string,
-  password: string
-) => {
-  return db.user.create({
+export async function insertUser(username: string, email: string, password: string) {
+  return await db.user.create({
     data: {
       username: username,
       email: email,
@@ -21,3 +17,5 @@ export const ServiceInsertUser = (
     },
   });
 };
+
+

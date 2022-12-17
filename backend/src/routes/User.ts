@@ -1,11 +1,11 @@
 import express from "express";
 const router = express.Router();
 import {
-  ControllerGetUserInfoByEmailAddress,
-  InsertUser,
+  getUserInfo,
+  registerUser
 } from "../controllers/User";
 
-router.get("/:email", ControllerGetUserInfoByEmailAddress);
-router.post("/signup", InsertUser);
+router.get("/:email", getUserInfo);
+router.post("/signup", registerUser);
 
 export default router;
