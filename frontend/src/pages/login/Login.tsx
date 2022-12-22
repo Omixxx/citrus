@@ -54,7 +54,7 @@ const Login: React.FC = () => {
       />
       <div className="ion-text-center">don't have an account?</div>
       <div className="ion-text-center">
-        <a href="/register">Register</a>
+        <a href="/signup">Register</a>
       </div>
     </IonHeader>
   );
