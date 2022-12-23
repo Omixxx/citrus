@@ -1,5 +1,5 @@
 export function storeJwt(token: string) {
-  if (token === null || token === undefined || token === "") return false;
+  if (token === null || token === undefined) return false;
 
   localStorage.setItem("jwt", token);
   return true;
