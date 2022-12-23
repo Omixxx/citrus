@@ -9,10 +9,10 @@ import {
 
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { CustomIonicButton } from "./components/customIonicButton";
-import { CustomIonicInput } from "./components/CustomIonicInput";
+import { CustomIonicInput } from "../../components/CustomIonicInput";
+import { CustomIonicButton } from "../../components/CustomIonicButton";
 import "./Login.css";
-import axios from 'axios';
+import axios from "axios";
 
 // react functional components do not have state, so we need to use hooks to manage state
 // this is a similar concept to using a class component
@@ -47,7 +47,9 @@ const Login: React.FC = () => {
       />
       <CustomIonicButton
         onClick={() =>
-          login(email, password) ? history.push("/home") : alert("invalid credentials")
+          login(email, password)
+            ? history.push("/home")
+            : alert("invalid credentials")
         }
         disabled="false"
         label="Login"
@@ -61,12 +63,15 @@ const Login: React.FC = () => {
 };
 
 function login(email: string, password: string): boolean {
-  let sessioCookie = undefined
-  sessioCookie = axios.post(` http://localhost:${process.env.REACT_APP_BACKEND_PORT}/login`, {
-    email: email,
-    password: password
-  });
-  return (sessioCookie != undefined);
+  let sessioCookie = undefined;
+  sessioCookie = axios.post(
+    ` http://localhost:${process.env.REACT_APP_BACKEND_PORT}/login`,
+    {
+      email: email,
+      password: password,
+    }
+  );
+  return sessioCookie !== undefined;
 }
 
 export default Login;
