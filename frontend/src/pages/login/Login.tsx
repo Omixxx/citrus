@@ -30,7 +30,7 @@ const Login: React.FC = () => {
       </IonToolbar>
       <IonRow>
         <IonCol>
-          <IonIcon name="./assets/person-svgrepo-com.svg"></IonIcon>
+          <IonIcon name="./assets/person-svgrepo-com.svg" />
         </IonCol>
       </IonRow>
       <CustomIonicInput
@@ -69,7 +69,7 @@ function login(email: string, password: string): boolean {
     {
       email: email,
       password: password,
-    }
+    },
   );
   return sessioCookie !== undefined;
 }

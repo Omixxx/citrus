@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { IonButton, IonInput, IonItem, IonLabel, IonNote } from "@ionic/react";
+import axios from "axios";
+import { useState } from "react";
 
 function Signup() {
   const [isTouched, setIsTouched] = useState(false);
@@ -11,7 +12,7 @@ function Signup() {
 
   const validateEmail = (email: string) => {
     return email.match(
-      /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+      /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
     );
   };
 
@@ -33,17 +34,18 @@ function Signup() {
     username: string,
     email: string,
     password: string,
-    confirmedPassword: string
+    confirmedPassword: string,
   ) {
     if (!areInputValid(username, email, password, confirmedPassword)) return;
-    alert("signup");
+    axios.post(`http://localhost${process.env.REACT_APP_BACKEND_PORT}/user/signup`,
+      { username: username, email: email, password: password })
   }
 
   function areInputValid(
     username: string,
     email: string,
     password: string,
-    confirmedPassword: string
+    confirmedPassword: string,
   ): boolean {
     if (
       username === "" ||
@@ -78,7 +80,7 @@ function Signup() {
           onIonChange={(event) => {
             setUsername(event.detail.value!);
           }}
-        ></IonInput>
+        />
       </IonItem>
 
       <IonItem
@@ -95,7 +97,7 @@ function Signup() {
           onIonChange={(event) => {
             setEmail(event.detail.value!);
           }}
-        ></IonInput>
+        />
         <IonNote slot="error">Invalid email</IonNote>
       </IonItem>
 
@@ -108,7 +110,7 @@ function Signup() {
           onIonChange={(event) => {
             setPassword(event.detail.value!);
           }}
-        ></IonInput>
+        />
       </IonItem>
 
       <IonItem fill="solid">
@@ -120,7 +122,7 @@ function Signup() {
           onIonChange={(event) => {
             setConfirmPassword(event.detail.value!);
           }}
-        ></IonInput>
+        />
       </IonItem>
       <IonButton
         onClick={() => {

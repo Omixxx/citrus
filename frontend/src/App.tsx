@@ -29,32 +29,32 @@ import { isAuthenticated } from "./utils/isAuthenticated";
 setupIonicReact();
 
 const App: React.FC = () => (
-        <IonApp>
-                <IonReactRouter>
-                        {!isAuthenticated() ? (
-                                <IonRouterOutlet>
-                                        <Route exact path="/signup">
-                                                <Signup />
-                                        </Route>
-                                        <Route exact path="/login">
-                                                <Login />
-                                        </Route>
-                                        <Route exact path="/">
-                                                <Redirect to="/login" />
-                                        </Route>
-                                </IonRouterOutlet>
-                        ) : (
-                                <IonRouterOutlet>
-                                        <Route exact path="/home">
-                                                <Home />
-                                        </Route>
-                                        <Route exact path="/exp&inc">
-                                                <ExpenditureAndIncome />
-                                        </Route>
-                                </IonRouterOutlet>
-                        )}
-                </IonReactRouter>
-        </IonApp>
+	<IonApp>
+		<IonReactRouter>
+			{!isAuthenticated() ? (
+				<IonRouterOutlet>
+					<Route exact path="/signup">
+						<Signup />
+					</Route>
+					<Route exact path="/login">
+						<Login />
+					</Route>
+					<Route exact path="/">
+						<Redirect to="/login" />
+					</Route>
+				</IonRouterOutlet>
+			) : (
+				<IonRouterOutlet>
+					<Route exact path="/home">
+						<Home />
+					</Route>
+					<Route exact path="/exp&inc">
+						<ExpenditureAndIncome />
+					</Route>
+				</IonRouterOutlet>
+			)}
+		</IonReactRouter>
+	</IonApp>
 );
 
 export default App;
