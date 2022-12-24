@@ -12,7 +12,7 @@ function Signup() {
 
   const validateEmail = (email: string) => {
     return email.match(
-      /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
     );
   };
 
@@ -34,18 +34,28 @@ function Signup() {
     username: string,
     email: string,
     password: string,
-    confirmedPassword: string,
+    confirmedPassword: string
   ) {
-    if (!areInputValid(username, email, password, confirmedPassword)) return;
-    axios.post(`http://localhost${process.env.REACT_APP_BACKEND_PORT}/user/signup`,
-      { username: username, email: email, password: password })
+    if (areInputValid(username, email, password, confirmedPassword)) {
+      axios
+        .post(
+          `http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/signup`,
+          { username: username, email: email, password: password }
+        )
+        .then((res) => {
+          alert(`User created successfully ${res.status}`);
+        })
+        .catch((error) => {
+          alert(`an error occurred ${error}`);
+        });
+    }
   }
 
   function areInputValid(
     username: string,
     email: string,
     password: string,
-    confirmedPassword: string,
+    confirmedPassword: string
   ): boolean {
     if (
       username === "" ||
@@ -58,6 +68,7 @@ function Signup() {
     }
     if (password !== confirmedPassword) {
       alert("Passwords don't match!!");
+      return false;
     }
     if (isValid === false) {
       alert("Please enter a valid email address");
@@ -85,8 +96,9 @@ function Signup() {
 
       <IonItem
         fill="solid"
-        className={`${isValid && "ion-valid"} ${isValid === false && "ion-invalid"
-          } ${isTouched && "ion-touched"}`}
+        className={`${isValid && "ion-valid"} ${
+          isValid === false && "ion-invalid"
+        } ${isTouched && "ion-touched"}`}
       >
         <IonLabel position="floating">Email</IonLabel>
         <IonInput

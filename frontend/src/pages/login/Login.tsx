@@ -63,15 +63,24 @@ const Login: React.FC = () => {
 };
 
 function login(email: string, password: string): boolean {
-  let sessioCookie = undefined;
-  sessioCookie = axios.post(
-    ` http://localhost:${process.env.REACT_APP_BACKEND_PORT}/login`,
-    {
-      email: email,
-      password: password,
-    },
-  );
-  return sessioCookie !== undefined;
+  axios
+    .post(
+      ` http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/login`,
+      {
+        email: email,
+        password: password,
+      }
+    )
+    .then((res) => {
+      alert(`User logged in successfully ${res.status}`);
+      return true;
+    })
+    .catch((error) => {
+      alert(`an error occurred ${error}`);
+      return false;
+    });
+
+  return false;
 }
 
 export default Login;

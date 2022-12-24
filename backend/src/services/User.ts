@@ -8,6 +8,14 @@ export function queryUserByEmailAddress(email: string) {
   });
 };
 
+export async function queryUserById(id: number) {
+  return await db.user.findUnique({
+    where: {
+      id: id,
+    },
+  });
+}
+
 export async function insertUser(username: string, email: string, password: string) {
   return await db.user.create({
     data: {
