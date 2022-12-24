@@ -13,6 +13,7 @@ import { CustomIonicInput } from "../../components/CustomIonicInput";
 import { CustomIonicButton } from "../../components/CustomIonicButton";
 import "./Login.css";
 import axios from "axios";
+import { storeJwt } from "../../services/jwt";
 
 // react functional components do not have state, so we need to use hooks to manage state
 // this is a similar concept to using a class component
@@ -70,9 +71,10 @@ function login(email: string, password: string) {
     .then((res) => {
       alert(`User logged in successfully ${res.status}`);
       alert(`token is ${res.data.token}`);
+      storeJwt(res.data.token);
     })
-    .catch((error) => {
-      alert(`an error occurred ${error}`);
+    .catch(() => {
+      alert(`invalid credentials`);
     });
 }
 

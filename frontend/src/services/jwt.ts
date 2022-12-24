@@ -7,6 +7,8 @@ export function storeJwt(token: string): boolean {
 
 export function getJwt(): string {
 	const token = localStorage.getItem("jwt");
+	console.log(token);
+
 	if (token === null || token === undefined) return "";
 	return token;
 }

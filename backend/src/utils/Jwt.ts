@@ -3,15 +3,14 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export class Jwt {
-
 	generateToken(userIdentifier: number) {
 		console.log(process.env.JWT_SECRET);
 		return jwt.sign(
 			{
-				data: userIdentifier.toString(),
+				expiration: "30d",
+				data: userIdentifier,
 			},
-			process.env.JWT_SECRET || "secret ",
-			{ expiresIn: "30d" },
+			process.env.JWT_SECRET || "secret "
 		);
 	}
 
@@ -20,7 +19,8 @@ export class Jwt {
 		return parseInt(myToken.split(".")[1]);
 	}
 
-	verify(token: string) {
-		return jwt.verify(token, process.env.JWT_SECRET || "secret");
+	verify(token: string): boolean {
+		const tok = jwt.verify(token, process.env.JWT_SECRET || "secret");
+		return tok !== null && tok !== undefined ? true : false;
 	}
 }

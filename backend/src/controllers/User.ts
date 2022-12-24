@@ -17,8 +17,11 @@ export async function registerUser(req: any, res: any) {
     : res.status(status.BAD_REQUEST).send();
 }
 
-export function isAuthenticated(req: any, res: any): any {
+export function isAuthenticated(req: any, res: any) {
+  console.log("cia");
   const token = req.headers.authorization;
+  console.log(`token: ${token}`);
+
   if (!token || !jwt.verify(token))
     return res.status(status.UNAUTHORIZED).send();
 
@@ -33,4 +36,18 @@ export async function login(req: any, res: any) {
   }
 
   return res.status(status.OK).send({ token: jwt.generateToken(user.id) });
+}
+
+export async function getUsername(req: any, res: any) {
+  const token = req.headers.authorization;
+  if (!jwt.verify(token)) {
+    return res.status(status.UNAUTHORIZED).send();
+  }
+  const userId = jwt.getUserId(token);
+  console.log(`userId: ${userId}`);
+  const user = await queryUserById(userId);
+  if (user === null) {
+    return res.status(status.NOT_FOUND).send();
+  }
+  return res.status(status.OK).send({ username: user.username });
 }

@@ -51,6 +51,10 @@ const App: React.FC = () => (
 					<Route exact path="/exp&inc">
 						<ExpenditureAndIncome />
 					</Route>
+					<Redirect exact path="/" to="/home" />
+					<Route exact path="/login">
+						<Login />
+					</Route>
 				</IonRouterOutlet>
 			)}
 		</IonReactRouter>
