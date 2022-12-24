@@ -1,6 +1,9 @@
-import { warn } from "console";
 import status from "http-status";
-import { insertUser, queryUserById } from "../services/User";
+import {
+  insertUser,
+  queryUserByEmailAddress,
+  queryUserById,
+} from "../services/User";
 import { Jwt } from "../utils/Jwt";
 const jwt = new Jwt();
 
@@ -23,17 +26,11 @@ export function isAuthenticated(req: any, res: any): any {
 }
 
 export async function login(req: any, res: any) {
-  const token = req.headers.authorization;
-  console.log(token);
-
-  if (!jwt.verify(token)) return res.status(status.UNAUTHORIZED).send();
-
   const { email, password } = req.body;
-  const userId = jwt.getUserId(token);
-  const user = await queryUserById(userId);
+  const user = await queryUserByEmailAddress(email);
   if (user === null || user.email !== email || user.password !== password) {
     return res.status(status.UNAUTHORIZED).send();
   }
 
-  return res.status(status.OK).send();
+  return res.status(status.OK).send({ token: jwt.generateToken(user.id) });
 }

@@ -46,11 +46,7 @@ const Login: React.FC = () => {
         onIonChange={(e: any) => setPassword(e.detail.value!)}
       />
       <CustomIonicButton
-        onClick={() =>
-          login(email, password)
-            ? history.push("/home")
-            : alert("invalid credentials")
-        }
+        onClick={() => login(email, password)}
         disabled="false"
         label="Login"
       />
@@ -62,7 +58,7 @@ const Login: React.FC = () => {
   );
 };
 
-function login(email: string, password: string): boolean {
+function login(email: string, password: string) {
   axios
     .post(
       ` http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/login`,
@@ -73,14 +69,11 @@ function login(email: string, password: string): boolean {
     )
     .then((res) => {
       alert(`User logged in successfully ${res.status}`);
-      return true;
+      alert(`token is ${res.data.token}`);
     })
     .catch((error) => {
       alert(`an error occurred ${error}`);
-      return false;
     });
-
-  return false;
 }
 
 export default Login;

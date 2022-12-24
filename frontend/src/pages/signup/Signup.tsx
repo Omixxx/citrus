@@ -96,9 +96,8 @@ function Signup() {
 
       <IonItem
         fill="solid"
-        className={`${isValid && "ion-valid"} ${
-          isValid === false && "ion-invalid"
-        } ${isTouched && "ion-touched"}`}
+        className={`${isValid && "ion-valid"} ${isValid === false && "ion-invalid"
+          } ${isTouched && "ion-touched"}`}
       >
         <IonLabel position="floating">Email</IonLabel>
         <IonInput
