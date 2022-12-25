@@ -10,11 +10,11 @@ import {
 
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { CustomIonicInput } from "../../components/CustomIonicInput";
-import { CustomIonicButton } from "../../components/CustomIonicButton";
 import "./Login.css";
 import axios from "axios";
 import { storeJwt } from "../../services/jwt";
+import { CustomIonicInput } from "./components/CustomIonicInput";
+import { CustomIonicButton } from "./components/CustomIonicButton";
 
 // react functional components do not have state, so we need to use hooks to manage state
 // this is a similar concept to using a class component
