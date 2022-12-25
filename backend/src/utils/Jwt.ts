@@ -20,7 +20,7 @@ export class Jwt {
 	}
 
 	verify(token: string): boolean {
-		const tok = jwt.verify(token, process.env.JWT_SECRET || "secret");
-		return tok !== null && tok !== undefined ? true : false;
+		const myToken = jwt.verify(token, process.env.JWT_SECRET || "secret");
+		return myToken === null || token === undefined ? false : true;
 	}
 }

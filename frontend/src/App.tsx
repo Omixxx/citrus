@@ -24,41 +24,29 @@ import "./theme/variables.css";
 import ExpenditureAndIncome from "./pages/expenditure_and_incomes/ExprenditureAndIncome";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import { isAuthenticated } from "./utils/isAuthenticated";
+import Boot from "./components/Boot";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-	<IonApp>
-		<IonReactRouter>
-			{!isAuthenticated() ? (
+const App: React.FC = () => {
+	return (
+		<IonApp>
+			<IonReactRouter>
 				<IonRouterOutlet>
-					<Route exact path="/signup">
-						<Signup />
-					</Route>
 					<Route exact path="/login">
 						<Login />
 					</Route>
-					<Route exact path="/">
-						<Redirect to="/login" />
-					</Route>
-				</IonRouterOutlet>
-			) : (
-				<IonRouterOutlet>
 					<Route exact path="/home">
 						<Home />
 					</Route>
-					<Route exact path="/exp&inc">
-						<ExpenditureAndIncome />
-					</Route>
-					<Redirect exact path="/" to="/home" />
-					<Route exact path="/login">
-						<Login />
+					<Route exact path="/dashboard" component={Home} />
+					<Route exact path="/">
+						<Boot />
 					</Route>
 				</IonRouterOutlet>
-			)}
-		</IonReactRouter>
-	</IonApp>
-);
+			</IonReactRouter>
+		</IonApp>
+	);
+};
 
 export default App;

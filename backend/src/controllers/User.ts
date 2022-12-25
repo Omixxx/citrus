@@ -18,9 +18,7 @@ export async function registerUser(req: any, res: any) {
 }
 
 export function isAuthenticated(req: any, res: any) {
-  console.log("cia");
   const token = req.headers.authorization;
-  console.log(`token: ${token}`);
 
   if (!token || !jwt.verify(token))
     return res.status(status.UNAUTHORIZED).send();

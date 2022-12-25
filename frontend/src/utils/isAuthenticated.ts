@@ -1,17 +1,17 @@
 import axios from "axios";
 import { getJwt } from "../services/jwt";
 
-export function isAuthenticated(): boolean {
-	let autenticationStatus: boolean = false;
+export async function isAuthenticated() {
 	const token = getJwt();
+	if (token === null || token === undefined) return false;
 
-	if (token === null || token === undefined) {
-		return autenticationStatus;
+	try {
+		await axios.get(
+			`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/isAuth`
+		);
+	} catch (error) {
+		alert(error);
+		return false;
 	}
-	axios
-		.get(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/isAuth`)
-		.catch(() => {
-			alert("notAuth");
-		});
-	return autenticationStatus;
+	return true;
 }
