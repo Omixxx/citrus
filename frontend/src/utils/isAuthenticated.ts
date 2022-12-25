@@ -1,10 +1,17 @@
-import storageManager from '../services/device/storageManager'
+import axios from "axios";
+import { getJwt } from "../services/jwt";
 
-export function isAuthenticated(): boolean {
-  const axios = require('axios')
-  const token = storageManager.getJwtToken()
-  console.log(` token: ${token}`)
-  if (token === null || token === undefined) { return false; }
-  return axios.post(`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/api/auth/isAuthenticated`, { token: token })
+export async function isAuthenticated() {
+	const token = getJwt();
+	if (token === null || token === undefined) return false;
+
+	try {
+		await axios.get(
+			`http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/isAuth`
+		);
+	} catch (error) {
+		alert(error);
+		return false;
+	}
+	return true;
 }
-

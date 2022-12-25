@@ -6,16 +6,27 @@ export function queryUserByEmailAddress(email: string) {
       email: email,
     },
   });
-};
+}
 
-export async function insertUser(username: string, email: string, password: string) {
-  return await db.user.create({
+export async function queryUserById(id: number) {
+  return await db.user.findUnique({
+    where: {
+      id: id,
+    },
+  });
+}
+
+export async function insertUser(
+  username: string,
+  email: string,
+  password: string
+) {
+  const user = await db.user.create({
     data: {
       username: username,
       email: email,
       password: password,
     },
   });
-};
-
-
+  return user ? true : false;
+}
