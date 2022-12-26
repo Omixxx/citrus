@@ -1,5 +1,6 @@
 import {
   IonCol,
+  IonContent,
   IonHeader,
   IonIcon,
   IonPage,
@@ -27,7 +28,7 @@ const Login: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonContent>
         <IonToolbar>
           <IonTitle class="ion-text-center">Login</IonTitle>
         </IonToolbar>
@@ -57,7 +58,7 @@ const Login: React.FC = () => {
         <div className="ion-text-center">
           <a href="/signup">Register</a>
         </div>
-      </IonHeader>
+      </IonContent>
     </IonPage>
   );
 

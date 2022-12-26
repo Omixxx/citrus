@@ -1,5 +1,14 @@
-import { IonButton, IonInput, IonItem, IonLabel, IonNote } from "@ionic/react";
+import {
+  IonButton,
+  IonContent,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonNote,
+  IonPage,
+} from "@ionic/react";
 import axios from "axios";
+import "./Signup.css";
 import { useState } from "react";
 
 function Signup() {
@@ -82,67 +91,75 @@ function Signup() {
   }
 
   return (
-    <>
-      <IonItem fill="solid">
-        <IonLabel position="floating">Username</IonLabel>
-        <IonInput
-          value={username}
-          placeholder="Username"
-          onIonChange={(event) => {
-            setUsername(event.detail.value!);
-          }}
-        />
-      </IonItem>
+    <IonPage>
+      <IonContent className="ion-padding">
+        <IonItem fill="solid" className="pad">
+          <IonLabel position="floating">Username</IonLabel>
+          <IonInput
+            value={username}
+            placeholder="Username"
+            onIonChange={(event) => {
+              setUsername(event.detail.value!);
+            }}
+          />
+        </IonItem>
 
-      <IonItem
-        fill="solid"
-        className={`${isValid && "ion-valid"} ${isValid === false && "ion-invalid"
-          } ${isTouched && "ion-touched"}`}
-      >
-        <IonLabel position="floating">Email</IonLabel>
-        <IonInput
-          type="email"
-          value={email}
-          onIonInput={(event) => validate(event)}
-          onIonBlur={() => markTouched()}
-          onIonChange={(event) => {
-            setEmail(event.detail.value!);
-          }}
-        />
-        <IonNote slot="error">Invalid email</IonNote>
-      </IonItem>
+        <IonItem
+          fill="solid"
+          className={`${isValid && "ion-valid"} ${isValid === false && "ion-invalid"
+            } ${isTouched && "ion-touched"} pad`}
+        >
+          <IonLabel position="floating">Email</IonLabel>
+          <IonInput
+            type="email"
+            value={email}
+            onIonInput={(event) => validate(event)}
+            onIonBlur={() => markTouched()}
+            onIonChange={(event) => {
+              setEmail(event.detail.value!);
+            }}
+          />
+          <IonNote slot="error">Invalid email</IonNote>
+        </IonItem>
 
-      <IonItem fill="solid">
-        <IonLabel position="floating">Password</IonLabel>
-        <IonInput
-          type="password"
-          value={password}
-          placeholder="Password"
-          onIonChange={(event) => {
-            setPassword(event.detail.value!);
-          }}
-        />
-      </IonItem>
+        <IonItem fill="solid" className="pad">
+          <IonLabel position="floating">Password</IonLabel>
+          <IonInput
+            type="password"
+            value={password}
+            placeholder="Password"
+            onIonChange={(event) => {
+              setPassword(event.detail.value!);
+            }}
+          />
+        </IonItem>
 
-      <IonItem fill="solid">
-        <IonLabel position="floating">Confirm Password</IonLabel>
-        <IonInput
-          type="password"
-          value={confirmedPassword}
-          placeholder="Password"
-          onIonChange={(event) => {
-            setConfirmPassword(event.detail.value!);
+        <IonItem fill="solid" className="pad">
+          <IonLabel position="floating">Confirm Password</IonLabel>
+          <IonInput
+            type="password"
+            value={confirmedPassword}
+            placeholder="Password"
+            onIonChange={(event) => {
+              setConfirmPassword(event.detail.value!);
+            }}
+          />
+        </IonItem>
+        <IonButton
+          style={{
+            display: "block",
+            paddingLeft: "40%",
+            paddingRight: "40%",
+            marginTop: "30px",
           }}
-        />
-      </IonItem>
-      <IonButton
-        onClick={() => {
-          signup(username, email, password, confirmedPassword);
-        }}
-      >
-        Signup
-      </IonButton>
-    </>
+          onClick={() => {
+            signup(username, email, password, confirmedPassword);
+          }}
+        >
+          Signup
+        </IonButton>
+      </IonContent>
+    </IonPage>
   );
 }
 
