@@ -8,7 +8,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-
+import { BiLogIn } from "react-icons/bi";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Login.css";
@@ -32,11 +32,9 @@ const Login: React.FC = () => {
         <IonToolbar>
           <IonTitle class="ion-text-center">Login</IonTitle>
         </IonToolbar>
-        <IonRow>
-          <IonCol>
-            <IonIcon name="./assets/person-svgrepo-com.svg" />
-          </IonCol>
-        </IonRow>
+        <div className="ion-text-center" style={{ paddingTop: "3%" }}>
+          <BiLogIn size="3%" />
+        </div>
         <CustomIonicInput
           label="Email"
           type="email"

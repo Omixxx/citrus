@@ -6,10 +6,14 @@ import {
   IonLabel,
   IonNote,
   IonPage,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/react";
 import axios from "axios";
 import "./Signup.css";
 import { useState } from "react";
+import { FaSignInAlt } from "react-icons/fa";
+import { useHistory } from "react-router";
 
 function Signup() {
   const [isTouched, setIsTouched] = useState(false);
@@ -18,6 +22,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
+  const history = useHistory();
 
   const validateEmail = (email: string) => {
     return email.match(
@@ -53,9 +58,10 @@ function Signup() {
         )
         .then((res) => {
           alert(`User created successfully ${res.status}`);
+          history.push("/login");
         })
         .catch((error) => {
-          alert(`an error occurred ${error}`);
+          alert(`User already exist...`);
         });
     }
   }
@@ -92,7 +98,14 @@ function Signup() {
 
   return (
     <IonPage>
+      <IonToolbar>
+        <IonTitle class="ion-text-center">Signup</IonTitle>
+      </IonToolbar>
       <IonContent className="ion-padding">
+        <div className="ion-text-center" style={{ paddingTop: "3%" }}>
+          <FaSignInAlt size="3%" />
+        </div>
+
         <IonItem fill="solid" className="pad">
           <IonLabel position="floating">Username</IonLabel>
           <IonInput
