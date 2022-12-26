@@ -1,6 +1,19 @@
-import { IonButton, IonInput, IonItem, IonLabel, IonNote } from "@ionic/react";
+import {
+  IonButton,
+  IonContent,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonNote,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
 import axios from "axios";
+import "./Signup.css";
 import { useState } from "react";
+import { FiUserPlus } from "react-icons/fi";
+import { useHistory } from "react-router";
 
 function Signup() {
   const [isTouched, setIsTouched] = useState(false);
@@ -9,6 +22,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
+  const history = useHistory();
 
   const validateEmail = (email: string) => {
     return email.match(
@@ -44,9 +58,10 @@ function Signup() {
         )
         .then((res) => {
           alert(`User created successfully ${res.status}`);
+          history.push("/login");
         })
-        .catch((error) => {
-          alert(`an error occurred ${error}`);
+        .catch(() => {
+          alert(`User already exist...`);
         });
     }
   }
@@ -82,67 +97,89 @@ function Signup() {
   }
 
   return (
-    <>
-      <IonItem fill="solid">
-        <IonLabel position="floating">Username</IonLabel>
-        <IonInput
-          value={username}
-          placeholder="Username"
-          onIonChange={(event) => {
-            setUsername(event.detail.value!);
-          }}
-        />
-      </IonItem>
+    <IonPage>
+      <IonContent className="ion-padding">
+        <IonToolbar className="round">
+          <IonTitle class="ion-text-center">Signup</IonTitle>
+        </IonToolbar>
+        <div className="ion-text-center" style={{ paddingTop: "3%" }}>
+          <FiUserPlus size="3%" />
+        </div>
+        <div className="pad">
+          <IonItem fill="solid" className=" round">
+            <IonLabel position="floating">Username</IonLabel>
+            <IonInput
+              value={username}
+              placeholder="Username"
+              onIonChange={(event) => {
+                setUsername(event.detail.value!);
+              }}
+            />
+          </IonItem>
+        </div>
 
-      <IonItem
-        fill="solid"
-        className={`${isValid && "ion-valid"} ${isValid === false && "ion-invalid"
-          } ${isTouched && "ion-touched"}`}
-      >
-        <IonLabel position="floating">Email</IonLabel>
-        <IonInput
-          type="email"
-          value={email}
-          onIonInput={(event) => validate(event)}
-          onIonBlur={() => markTouched()}
-          onIonChange={(event) => {
-            setEmail(event.detail.value!);
-          }}
-        />
-        <IonNote slot="error">Invalid email</IonNote>
-      </IonItem>
+        <div className="pad">
+          <IonItem
+            fill="solid"
+            className={`${isValid && "ion-valid"} ${isValid === false && "ion-invalid"
+              } ${isTouched && "ion-touched"} round`}
+          >
+            <IonLabel position="floating">Email</IonLabel>
+            <IonInput
+              type="email"
+              value={email}
+              onIonInput={(event) => validate(event)}
+              onIonBlur={() => markTouched()}
+              onIonChange={(event) => {
+                setEmail(event.detail.value!);
+              }}
+            />
+            <IonNote slot="error">Invalid email</IonNote>
+          </IonItem>
+        </div>
 
-      <IonItem fill="solid">
-        <IonLabel position="floating">Password</IonLabel>
-        <IonInput
-          type="password"
-          value={password}
-          placeholder="Password"
-          onIonChange={(event) => {
-            setPassword(event.detail.value!);
-          }}
-        />
-      </IonItem>
+        <div className="pad">
+          <IonItem fill="solid" className="round">
+            <IonLabel position="floating">Password</IonLabel>
+            <IonInput
+              type="password"
+              value={password}
+              placeholder="Password"
+              onIonChange={(event) => {
+                setPassword(event.detail.value!);
+              }}
+            />
+          </IonItem>
+        </div>
 
-      <IonItem fill="solid">
-        <IonLabel position="floating">Confirm Password</IonLabel>
-        <IonInput
-          type="password"
-          value={confirmedPassword}
-          placeholder="Password"
-          onIonChange={(event) => {
-            setConfirmPassword(event.detail.value!);
+        <div className="pad">
+          <IonItem fill="solid" className="round">
+            <IonLabel position="floating">Confirm Password</IonLabel>
+            <IonInput
+              type="password"
+              value={confirmedPassword}
+              placeholder="Password"
+              onIonChange={(event) => {
+                setConfirmPassword(event.detail.value!);
+              }}
+            />
+          </IonItem>
+        </div>
+        <IonButton
+          style={{
+            display: "block",
+            paddingLeft: "40%",
+            paddingRight: "40%",
+            marginTop: "30px",
           }}
-        />
-      </IonItem>
-      <IonButton
-        onClick={() => {
-          signup(username, email, password, confirmedPassword);
-        }}
-      >
-        Signup
-      </IonButton>
-    </>
+          onClick={() => {
+            signup(username, email, password, confirmedPassword);
+          }}
+        >
+          Signup
+        </IonButton>
+      </IonContent>
+    </IonPage>
   );
 }
 

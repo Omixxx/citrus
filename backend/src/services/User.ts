@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { db } from "../config/db.server";
 
 export function queryUserByEmailAddress(email: string) {
@@ -21,12 +22,17 @@ export async function insertUser(
   email: string,
   password: string
 ) {
-  const user = await db.user.create({
-    data: {
-      username: username,
-      email: email,
-      password: password,
-    },
-  });
+  let user: any;
+  try {
+    user = await db.user.create({
+      data: {
+        username: username,
+        email: email,
+        password: password,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
   return user ? true : false;
 }

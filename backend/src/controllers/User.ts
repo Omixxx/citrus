@@ -1,17 +1,20 @@
 import status from "http-status";
+import { Jwt } from "../utils/Jwt";
 import {
   insertUser,
   queryUserByEmailAddress,
   queryUserById,
 } from "../services/User";
-import { Jwt } from "../utils/Jwt";
+
+let Hashes = require("jshashes");
+const SHA256 = new Hashes.SHA256();
 const jwt = new Jwt();
 
 export async function registerUser(req: any, res: any) {
   return (await insertUser(
     req.body.username,
     req.body.email,
-    req.body.password
+    SHA256.hex(req.body.password)
   ))
     ? res.status(status.CREATED).send()
     : res.status(status.BAD_REQUEST).send();
@@ -29,7 +32,11 @@ export function isAuthenticated(req: any, res: any) {
 export async function login(req: any, res: any) {
   const { email, password } = req.body;
   const user = await queryUserByEmailAddress(email);
-  if (user === null || user.email !== email || user.password !== password) {
+  if (
+    user === null ||
+    user.email !== email ||
+    user.password !== SHA256.hex(password)
+  ) {
     return res.status(status.UNAUTHORIZED).send();
   }
 

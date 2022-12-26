@@ -39,6 +39,9 @@ const App: React.FC = () => {
 					<Route exact path="/home">
 						<Home />
 					</Route>
+					<Route exact path="/signup">
+						<Signup />
+					</Route>
 					<Route exact path="/dashboard" component={Home} />
 					<Route exact path="/">
 						<Boot />
