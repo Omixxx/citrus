@@ -1,13 +1,4 @@
-import {
-  IonCol,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonPage,
-  IonRow,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
+import { IonContent, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { BiLogIn } from "react-icons/bi";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
