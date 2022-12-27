@@ -3,9 +3,15 @@ export const Line = (props: { numberOfLines: number }) => {
   const lineYposition = -15;
   return (
     <>
-      <svg width="100%" height="100%">
+      <svg width="100%" height="70%">
         {generateLines(props.numberOfLines, lineXposition, lineYposition)}
       </svg>
+      <button
+        hidden={props.numberOfLines > 4 ? true : false}
+        onClick={() => console.log("click")}
+      >
+        Click
+      </button>
     </>
   );
 
@@ -29,6 +35,9 @@ export const Line = (props: { numberOfLines: number }) => {
               fill="none"
             />
           </svg>
+          <text x="60" y="65" fill="white" font-size="16" text-anchor="middle">
+            afsjfkjas
+          </text>
         </g>
       );
       lineYposition += 50;

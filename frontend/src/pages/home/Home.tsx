@@ -42,6 +42,7 @@ const Home: React.FC = () => {
                   $ 200
                 </IonCardContent>
               </IonCard>
+
               <Line {...{ numberOfLines: parseInt(`${modNumber}`) }} />
             </IonCol>
           </IonRow>
