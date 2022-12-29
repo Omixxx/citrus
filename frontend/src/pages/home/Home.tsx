@@ -11,10 +11,10 @@ import {
   IonRow,
 } from "@ionic/react";
 import { useEffect, useState } from "react";
+import { getBalance } from "../../services/account/getBalance";
 import { Line } from "./components/Line";
 
 import "./Home.css";
-import { getBalance } from "./services/getBalance";
 
 const Home: React.FC = () => {
   const [modNumber, setModNumber] = useState(0);
@@ -42,15 +42,13 @@ const Home: React.FC = () => {
               <IonCard class="round" style={{ with: "20%", height: "20%" }}>
                 <IonCardHeader>
                   <IonCardTitle className="ion-text-center">
-                    {`${balance}`}
+                    {`€ ${balance}`}
                   </IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent
                   style={{ fontSize: 30 }}
                   className="ion-text-center"
-                >
-                  $ 200
-                </IonCardContent>
+                ></IonCardContent>
               </IonCard>
 
               <Line {...{ numberOfLines: parseInt(`${modNumber}`) }} />

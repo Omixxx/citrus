@@ -9,15 +9,15 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import axios from "axios";
 import "./Signup.css";
 import { useState } from "react";
 import { FiUserPlus } from "react-icons/fi";
 import { useHistory } from "react-router";
+import { signup } from "../../services/user/signup";
 
 function Signup() {
   const [isTouched, setIsTouched] = useState(false);
-  const [isValid, setIsValid] = useState<boolean>();
+  const [isValid, setIsValid] = useState<boolean>(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmPassword] = useState("");
@@ -33,7 +33,7 @@ function Signup() {
   const validate = (ev: Event) => {
     const value = (ev.target as HTMLInputElement).value;
 
-    setIsValid(undefined);
+    setIsValid(false);
 
     if (value === "") return;
 
@@ -43,58 +43,6 @@ function Signup() {
   const markTouched = () => {
     setIsTouched(true);
   };
-
-  function signup(
-    username: string,
-    email: string,
-    password: string,
-    confirmedPassword: string
-  ) {
-    if (areInputValid(username, email, password, confirmedPassword)) {
-      axios
-        .post(
-          `http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/signup`,
-          { username: username, email: email, password: password }
-        )
-        .then((res) => {
-          alert(`User created successfully ${res.status}`);
-          history.push("/login");
-        })
-        .catch(() => {
-          alert(`User already exist...`);
-        });
-    }
-  }
-
-  function areInputValid(
-    username: string,
-    email: string,
-    password: string,
-    confirmedPassword: string
-  ): boolean {
-    if (
-      username === "" ||
-      email === "" ||
-      password === "" ||
-      confirmedPassword === ""
-    ) {
-      alert("Please fill in all fields");
-      return false;
-    }
-    if (password !== confirmedPassword) {
-      alert("Passwords don't match!!");
-      return false;
-    }
-    if (isValid === false) {
-      alert("Please enter a valid email address");
-      return false;
-    }
-    if (password.length < 6) {
-      alert("Password must be at least 6 characters long");
-      return false;
-    }
-    return true;
-  }
 
   return (
     <IonPage>
@@ -173,7 +121,14 @@ function Signup() {
             marginTop: "30px",
           }}
           onClick={() => {
-            signup(username, email, password, confirmedPassword);
+            signup(
+              username,
+              email,
+              isValid,
+              password,
+              confirmedPassword,
+              history
+            );
           }}
         >
           Signup

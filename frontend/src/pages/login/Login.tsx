@@ -2,11 +2,10 @@ import { IonContent, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { BiLogIn } from "react-icons/bi";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import "./Login.css";
-import axios from "axios";
-import { storeJwt } from "../../services/jwt";
+import { login } from "../../services/user/login";
 import { CustomIonicInput } from "./components/CustomIonicInput";
 import { CustomIonicButton } from "./components/CustomIonicButton";
+import "./Login.css";
 
 // react functional components do not have state, so we need to use hooks to manage state
 // this is a similar concept to using a class component
@@ -39,7 +38,7 @@ const Login: React.FC = () => {
           onIonChange={(e: any) => setPassword(e.detail.value!)}
         />
         <CustomIonicButton
-          onClick={() => login(email, password)}
+          onClick={() => login(email, password, history)}
           disabled="false"
           label="Login"
         />
@@ -50,26 +49,6 @@ const Login: React.FC = () => {
       </IonContent>
     </IonPage>
   );
-
-  function login(email: string, password: string) {
-    axios
-      .post(
-        ` http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/login`,
-        {
-          email: email,
-          password: password,
-        }
-      )
-      .then((res) => {
-        alert(`User logged in successfully ${res.status}`);
-        alert(`token is ${res.data.token}`);
-        storeJwt(res.data.token);
-        history.push("/home");
-      })
-      .catch(() => {
-        alert(`invalid credentials`);
-      });
-  }
 };
 
 export default Login;
