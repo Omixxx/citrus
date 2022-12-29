@@ -1,26 +1,38 @@
 import { db } from "../config/db.server";
 
 export async function createSavingModel(name: string, percentage: number) {
-  return await db.savingModel.create({
-    data: {
-      name: name,
-      percentage: percentage,
-    },
-  });
+  try {
+    return await db.savingModel.create({
+      data: {
+        name: name,
+        percentage: percentage,
+      },
+    });
+  } catch (error: any) {
+    throw new Error(`error creating saving model ${error.message}`);
+  }
 }
 
 export async function querySavingModelByName(name: string) {
-  return await db.savingModel.findFirst({
-    where: {
-      name: name,
-    },
-  });
+  try {
+    return await db.savingModel.findFirst({
+      where: {
+        name: name,
+      },
+    });
+  } catch (error: any) {
+    throw new Error(`saving model not found${error.message}`);
+  }
 }
 
 export async function querySavingModelByPercentage(percentage: number) {
-  return await db.savingModel.findFirst({
-    where: {
-      percentage: percentage,
-    },
-  });
+  try {
+    return await db.savingModel.findFirst({
+      where: {
+        percentage: percentage,
+      },
+    });
+  } catch (error: any) {
+    throw new Error(`saving model not found${error.message}`);
+  }
 }

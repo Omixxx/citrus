@@ -4,7 +4,6 @@ dotenv.config();
 
 export class Jwt {
 	generateToken(userIdentifier: number) {
-		console.log(process.env.JWT_SECRET);
 		return jwt.sign(
 			{
 				expiration: "30d",
@@ -19,7 +18,16 @@ export class Jwt {
 			token,
 			process.env.JWT_SECRET || "secret"
 		);
-		return parseInt(myToken.toString().split(".")[1]);
+
+		if (
+			myToken === null ||
+			myToken === undefined ||
+			typeof myToken === "string"
+		) {
+			throw new Error("token is not valid");
+		}
+
+		return myToken.data;
 	}
 
 	verify(token: string): boolean {

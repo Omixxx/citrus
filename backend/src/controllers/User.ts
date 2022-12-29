@@ -27,7 +27,7 @@ export function isAuthenticated(req: any, res: any) {
   const token = req.headers.authorization;
 
   if (!token || !jwt.verify(token))
-    return res.status(status.UNAUTHORIZED).send();
+    throw new Error("User is not authenticated");
 
   return res.status(status.OK).send();
 }

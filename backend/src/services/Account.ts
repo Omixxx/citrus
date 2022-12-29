@@ -1,5 +1,5 @@
 import { db } from "../config/db.server";
-import { createSavingModel, querySavingModelByName } from "./SavingModel";
+import { querySavingModelByName } from "./SavingModel";
 
 export async function queryAccountById(userId: number) {
   try {
@@ -9,30 +9,34 @@ export async function queryAccountById(userId: number) {
       },
     });
   } catch (error: any) {
-    throw new Error("account not found");
+    throw new Error(`account not found for user with id: ${userId}`);
   }
 }
 
 export async function createAccount(userId: number) {
-  let savingModel = await querySavingModelByName("default");
-  if (savingModel === null || savingModel === undefined) {
-    savingModel = await createSavingModel("default", 0);
+  try {
+    let savingModel = await querySavingModelByName("default");
+    if (!savingModel) {
+      throw new Error("saving model not found");
+    }
+    return await db.account.create({
+      data: {
+        ownerId: userId,
+        savingModelId: savingModel.id,
+      },
+    });
+  } catch (error: any) {
+    throw new Error(`error creating account ${error.message}`);
   }
-
-  return await db.account.create({
-    data: {
-      ownerId: userId,
-      savingModelId: savingModel.id,
-    },
-  });
 }
 
 export async function queryAccontBalanceByUserId(userId: number) {
-  let account: any;
   try {
-    account = await queryAccountById(userId);
-  } catch (error) {
-    throw new Error(error.message + " in queryAccontBalanceByUserId");
+    let account = await queryAccountById(userId);
+    if (!account) throw new Error("account not found");
+
+    return account.balance;
+  } catch (error: any) {
+    throw new Error(`not able to get account balance, ${error.message}`);
   }
-  return account.balance;
 }
