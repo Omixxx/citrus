@@ -1,21 +1,24 @@
 import status from "http-status";
 import { Jwt } from "../utils/Jwt";
 import {
-  insertUser,
+  createUser,
   queryUserByEmailAddress,
   queryUserById,
 } from "../services/User";
+import { createAccount } from "../services/Account";
 
 let Hashes = require("jshashes");
 const SHA256 = new Hashes.SHA256();
 const jwt = new Jwt();
 
 export async function registerUser(req: any, res: any) {
-  return (await insertUser(
+  const user = await createUser(
     req.body.username,
     req.body.email,
     SHA256.hex(req.body.password)
-  ))
+  );
+
+  user !== null && user !== undefined && (await createAccount(user.id))
     ? res.status(status.CREATED).send()
     : res.status(status.BAD_REQUEST).send();
 }

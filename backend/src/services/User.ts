@@ -1,4 +1,3 @@
-import { User } from "@prisma/client";
 import { db } from "../config/db.server";
 
 export function queryUserByEmailAddress(email: string) {
@@ -17,7 +16,7 @@ export async function queryUserById(id: number) {
   });
 }
 
-export async function insertUser(
+export async function createUser(
   username: string,
   email: string,
   password: string
@@ -34,5 +33,5 @@ export async function insertUser(
   } catch (error) {
     console.log(error);
   }
-  return user ? true : false;
+  return user;
 }

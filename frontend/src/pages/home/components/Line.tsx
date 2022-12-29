@@ -7,7 +7,7 @@ export const Line = (props: { numberOfLines: number }) => {
         {generateLines(props.numberOfLines, lineXposition, lineYposition)}
       </svg>
       <button
-        hidden={props.numberOfLines > 4 ? true : false}
+        hidden={props.numberOfLines >= 4 ? true : false}
         onClick={() => console.log("click")}
       >
         Click

@@ -25,9 +25,9 @@ model Account {
   balance       Int         @default(0)
   owner         User        @relation(fields: [ownerId], references: [id])
   ownerId       Int         @unique
-  saving_model  SavingModel @relation(fields: [savingModelId], references: [id])
+  savingModel   SavingModel @relation(fields: [savingModelId], references: [id])
   savingModelId Int
-  window        Int         @default(0)
+  dayWindow     Int         @default(30)
   modifier      Modifier[]
 }
 

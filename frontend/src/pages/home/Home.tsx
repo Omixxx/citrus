@@ -10,13 +10,21 @@ import {
   IonPage,
   IonRow,
 } from "@ionic/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Line } from "./components/Line";
 
 import "./Home.css";
+import { getBalance } from "./services/getBalance";
 
 const Home: React.FC = () => {
   const [modNumber, setModNumber] = useState(0);
+  const [balance, setBalance] = useState(0);
+  useEffect(() => {
+    async function balance() {
+      setBalance(await getBalance());
+    }
+    balance();
+  }, []);
 
   return (
     <IonPage>
@@ -33,7 +41,9 @@ const Home: React.FC = () => {
             >
               <IonCard class="round" style={{ with: "20%", height: "20%" }}>
                 <IonCardHeader>
-                  <IonCardTitle className="ion-text-center">Saldo</IonCardTitle>
+                  <IonCardTitle className="ion-text-center">
+                    {`${balance}`}
+                  </IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent
                   style={{ fontSize: 30 }}

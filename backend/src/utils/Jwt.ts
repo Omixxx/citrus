@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,8 +15,11 @@ export class Jwt {
 	}
 
 	getUserId(token: string): number {
-		const myToken = jwt.verify(token, process.env.JWT_SECRET || "secret");
-		return parseInt(myToken.split(".")[1]);
+		const myToken: string | JwtPayload = jwt.verify(
+			token,
+			process.env.JWT_SECRET || "secret"
+		);
+		return parseInt(myToken.toString().split(".")[1]);
 	}
 
 	verify(token: string): boolean {
