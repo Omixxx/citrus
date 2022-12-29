@@ -3,7 +3,7 @@ import axios from "axios";
 export function signup(
   username: string,
   email: string,
-  emailValidity: boolean,
+  emailValidity: boolean | undefined,
   password: string,
   confirmedPassword: string,
   history: any
@@ -29,7 +29,7 @@ export function signup(
 function areInputValid(
   username: string,
   email: string,
-  emailValidity: boolean,
+  emailValidity: boolean | undefined,
   password: string,
   confirmedPassword: string
 ): boolean {
@@ -46,7 +46,7 @@ function areInputValid(
     alert("Passwords don't match!!");
     return false;
   }
-  if (!emailValidity) {
+  if (emailValidity === undefined || !emailValidity) {
     alert("Please enter a valid email address");
     return false;
   }

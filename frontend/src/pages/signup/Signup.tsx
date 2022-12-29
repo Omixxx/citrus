@@ -17,7 +17,7 @@ import { signup } from "../../services/user/signup";
 
 function Signup() {
   const [isTouched, setIsTouched] = useState(false);
-  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState<boolean>();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmPassword] = useState("");
