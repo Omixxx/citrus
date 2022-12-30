@@ -28,17 +28,10 @@ const Home: React.FC = () => {
   return (
     <IonPage>
       <IonContent className="ion-padding">
-        <IonGrid>
-          <IonRow>
-            <IonCol
-              style={{
-                paddingLeft: "20%",
-                paddingRight: "20%",
-                paddingTop: "3%",
-                paddingBottom: "10%",
-              }}
-            >
-              <IonCard class="round" style={{ with: "20%", height: "20%" }}>
+        <IonGrid style={{ height: "80%" }}>
+          <IonRow style={{ height: "65%" }}>
+            <IonCol>
+              <IonCard class="round">
                 <IonCardHeader>
                   <IonCardTitle className="ion-text-center">
                     {`€ ${balance}`}
@@ -55,6 +48,7 @@ const Home: React.FC = () => {
           </IonRow>
         </IonGrid>
         <IonButton
+          style={{ width: "30%", margin: "auto" }}
           onClick={() => {
             setModNumber(parseInt(`${modNumber}`) + 1);
           }}

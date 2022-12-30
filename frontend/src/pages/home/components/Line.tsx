@@ -31,7 +31,8 @@ export const Line = (props: { numberOfLines: number }) => {
             <path
               d="M00,00 L00,50 M00,50 Q4,70,20 65,"
               stroke="black"
-              stroke-dasharray="3, 5"
+              strokeWidth="2"
+              stroke-dasharray="5, 5"
               fill="none"
             />
           </svg>
