@@ -13,15 +13,15 @@ export function signup(
   ) {
     axios
       .post(
-        `http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/signup`,
+        `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/user/signup`,
         { username: username, email: email, password: password }
       )
       .then((res) => {
         alert(`User created successfully ${res.status}`);
         history.push("/login");
       })
-      .catch(() => {
-        alert(`User already exist...`);
+      .catch((err) => {
+        alert(err.message);
       });
   }
 }

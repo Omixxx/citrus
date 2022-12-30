@@ -13,17 +13,16 @@ import {
 import { useEffect, useState } from "react";
 import { getBalance } from "../../services/account/getBalance";
 import { Line } from "./components/Line";
-
 import "./Home.css";
 
 const Home: React.FC = () => {
   const [modNumber, setModNumber] = useState(0);
   const [balance, setBalance] = useState(0);
   useEffect(() => {
-    async function balance() {
+    async function init() {
       setBalance(await getBalance());
     }
-    balance();
+    init();
   }, []);
 
   return (

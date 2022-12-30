@@ -2,7 +2,9 @@ import axios from "axios";
 
 export async function getBalance() {
   return await axios
-    .get("http://localhost:8000/account/balance")
+    .get(
+      `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/account/balance`
+    )
     .then((res) => {
       return res.data.balance;
     })

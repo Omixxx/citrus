@@ -1,5 +1,5 @@
 export const Line = (props: { numberOfLines: number }) => {
-  const lineXposition = 15;
+  const lineXposition = 10;
   const lineYposition = -15;
   return (
     <>
@@ -30,12 +30,12 @@ export const Line = (props: { numberOfLines: number }) => {
           <svg width="100%" height="100%">
             <path
               d="M00,00 L00,50 M00,50 Q4,70,20 65,"
-              stroke="white"
+              stroke="black"
               stroke-dasharray="3, 5"
               fill="none"
             />
           </svg>
-          <text x="60" y="65" fill="white" font-size="16" text-anchor="middle">
+          <text x="60" y="65" fill="black" font-size="16" text-anchor="middle">
             afsjfkjas
           </text>
         </g>
