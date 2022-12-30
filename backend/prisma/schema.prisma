@@ -28,7 +28,7 @@ model Account {
   savingModel   SavingModel @relation(fields: [savingModelId], references: [id])
   savingModelId Int
   dayWindow     Int         @default(30)
-  modifier      Modifier[]
+  option        Option[]
 }
 
 model SavingModel {
@@ -39,7 +39,7 @@ model SavingModel {
   account    Account[]
 }
 
-model Modifier {
+model Option {
   id          Int       @id @default(autoincrement())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
