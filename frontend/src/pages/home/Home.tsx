@@ -1,12 +1,14 @@
 import {
-  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
   IonCol,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonGrid,
+  IonIcon,
   IonPage,
   IonRow,
 } from "@ionic/react";
@@ -14,6 +16,7 @@ import { useEffect, useState } from "react";
 import { getBalance } from "../../services/account/getBalance";
 import { Line } from "./components/Line";
 import "./Home.css";
+import { add } from "ionicons/icons";
 
 const Home: React.FC = () => {
   const [modNumber, setModNumber] = useState(0);
@@ -47,14 +50,14 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        <IonButton
-          style={{ width: "30%", margin: "auto" }}
-          onClick={() => {
-            setModNumber(parseInt(`${modNumber}`) + 1);
-          }}
-        >
-          Add
-        </IonButton>
+        <IonFab slot="fixed" horizontal="center" vertical="center">
+          <IonFabButton color="secondary">
+            <IonIcon
+              icon={add}
+              onClick={() => setModNumber(parseInt(`${modNumber}`) + 1)}
+            ></IonIcon>
+          </IonFabButton>
+        </IonFab>{" "}
       </IonContent>
     </IonPage>
   );
