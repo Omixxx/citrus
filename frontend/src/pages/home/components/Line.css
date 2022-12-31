@@ -1,0 +1,4 @@
+.line {
+  height: 100px; /* la lunghezza della linea */
+  border-left: 1px dashed white; /* stile della linea */
+}

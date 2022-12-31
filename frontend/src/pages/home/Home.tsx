@@ -1,27 +1,63 @@
 import {
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonCol,
   IonContent,
-  IonHeader,
+  IonFab,
+  IonFabButton,
+  IonGrid,
+  IonIcon,
   IonPage,
-  IonTitle,
-  IonToolbar,
+  IonRow,
 } from "@ionic/react";
-
+import { useEffect, useState } from "react";
+import { getBalance } from "../../services/account/getBalance";
+import { Line } from "./components/Line";
 import "./Home.css";
+import { add } from "ionicons/icons";
 
 const Home: React.FC = () => {
+  const [modNumber, setModNumber] = useState(0);
+  const [balance, setBalance] = useState(0);
+  useEffect(() => {
+    async function init() {
+      setBalance(await getBalance());
+    }
+    init();
+  }, []);
+
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+      <IonContent className="ion-padding">
+        <IonGrid style={{ height: "80%" }}>
+          <IonRow style={{ height: "65%" }}>
+            <IonCol>
+              <IonCard class="round">
+                <IonCardHeader>
+                  <IonCardTitle className="ion-text-center">
+                    {`€ ${balance}`}
+                  </IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent
+                  style={{ fontSize: 30 }}
+                  className="ion-text-center"
+                ></IonCardContent>
+              </IonCard>
+
+              <Line {...{ numberOfLines: parseInt(`${modNumber}`) }} />
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+        <IonFab slot="fixed" horizontal="center" vertical="center">
+          <IonFabButton color="secondary">
+            <IonIcon
+              icon={add}
+              onClick={() => setModNumber(parseInt(`${modNumber}`) + 1)}
+            ></IonIcon>
+          </IonFabButton>
+        </IonFab>{" "}
       </IonContent>
     </IonPage>
   );

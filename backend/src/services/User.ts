@@ -1,38 +1,43 @@
-import { User } from "@prisma/client";
 import { db } from "../config/db.server";
 
 export function queryUserByEmailAddress(email: string) {
-  return db.user.findUnique({
-    where: {
-      email: email,
-    },
-  });
+  try {
+    return db.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+  } catch (error: any) {
+    throw new Error(`User Not found ${error.message}`);
+  }
 }
 
 export async function queryUserById(id: number) {
-  return await db.user.findUnique({
-    where: {
-      id: id,
-    },
-  });
+  try {
+    return await db.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  } catch (error: any) {
+    throw new Error(`User Not found ${error.message}`);
+  }
 }
 
-export async function insertUser(
+export async function createUser(
   username: string,
   email: string,
   password: string
 ) {
-  let user: any;
   try {
-    user = await db.user.create({
+    return await db.user.create({
       data: {
         username: username,
         email: email,
         password: password,
       },
     });
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw new Error(`error creating user${error.message}`);
   }
-  return user ? true : false;
 }
