@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -17,9 +18,10 @@ import { getBalance } from "../../services/account/getBalance";
 import { Line } from "./components/Line";
 import "./Home.css";
 import { add } from "ionicons/icons";
+import AddIncome from "./components/AddIncome";
 
 const Home: React.FC = () => {
-  const [modNumber, setModNumber] = useState(0);
+  const [oprionNumber, setOprionNumber] = useState(0);
   const [balance, setBalance] = useState(0);
   useEffect(() => {
     async function init() {
@@ -46,7 +48,7 @@ const Home: React.FC = () => {
                 ></IonCardContent>
               </IonCard>
 
-              <Line {...{ numberOfLines: parseInt(`${modNumber}`) }} />
+              <Line {...{ numberOfLines: parseInt(`${oprionNumber}`) }} />
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -54,10 +56,11 @@ const Home: React.FC = () => {
           <IonFabButton color="secondary">
             <IonIcon
               icon={add}
-              onClick={() => setModNumber(parseInt(`${modNumber}`) + 1)}
+              onClick={() => setOprionNumber(parseInt(`${oprionNumber}`) + 1)}
             ></IonIcon>
           </IonFabButton>
-        </IonFab>{" "}
+        </IonFab>
+        <AddIncome />
       </IonContent>
     </IonPage>
   );
