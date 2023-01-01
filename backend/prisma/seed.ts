@@ -1,9 +1,9 @@
 import { db } from "../src/config/db.server";
 
 async function main() {
-  await seedIncomeCategory();
-  await seedExpenseCategory();
-  await seedSavingModels();
+  seedIncomeCategory();
+  seedExpenseCategory();
+  seedSavingModels();
 }
 
 main()
@@ -16,9 +16,9 @@ main()
     process.exit(1);
   });
 
-function seedIncomeCategory() {
+async function seedIncomeCategory() {
   try {
-    return db.incomeCategory.createMany({
+    return await db.incomeCategory.createMany({
       data: [
         {
           name: "Salary",
@@ -42,9 +42,9 @@ function seedIncomeCategory() {
   }
 }
 
-function seedExpenseCategory() {
+async function seedExpenseCategory() {
   try {
-    return db.expenseCategory.createMany({
+    return await db.expenseCategory.createMany({
       data: [
         {
           name: "Food",
@@ -68,9 +68,9 @@ function seedExpenseCategory() {
   }
 }
 
-function seedSavingModels() {
+async function seedSavingModels() {
   try {
-    return db.savingModel.createMany({
+    return await db.savingModel.createMany({
       data: [
         {
           name: "Classic ",
