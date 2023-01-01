@@ -9,9 +9,12 @@ import {
   IonPage,
   IonItem,
   useIonModal,
+  IonLabel,
+  IonInput,
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import Categories from "./Categories";
+import { Money } from "../../../utils/Money";
 
 const Modal = ({
   onDismiss,
@@ -19,6 +22,7 @@ const Modal = ({
   onDismiss: (data?: string | null | undefined | number, role?: string) => void;
 }) => {
   const inputRef = useRef<HTMLIonInputElement>(null);
+  const [incomeNumber, setIncomeNumber] = useState(0);
   return (
     <IonPage>
       <IonHeader>
@@ -42,7 +46,19 @@ const Modal = ({
         <IonItem>
           <Categories {...{ categories: ["abbaco", "ciao", "skrt"] }} />
         </IonItem>
-        <IonItem></IonItem>
+        <IonItem>
+          <IonInput
+            inputmode="numeric"
+            type="number"
+            value={incomeNumber}
+            onIonChange={(e: any) => {
+              e.target.value = Money.inputSanitizer(e.target.value);
+              setIncomeNumber(e.target.value);
+            }}
+            placeholder="$0"
+            min={0}
+          ></IonInput>
+        </IonItem>
       </IonContent>
     </IonPage>
   );
