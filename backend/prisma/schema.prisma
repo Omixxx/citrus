@@ -27,6 +27,7 @@ model Account {
   ownerId       Int         @unique
   savingModel   SavingModel @relation(fields: [savingModelId], references: [id])
   savingModelId Int
+  savings       Int         @default(0)
   dayWindow     Int         @default(30)
   option        Option[]
 }

@@ -1,7 +1,5 @@
 import { db } from "../src/config/db.server";
 
-//tutto questo casino per rendere il mapping asincrono. ogni procedura di creazione deve essere
-//asincrona.
 async function main() {
   await seedIncomeCategory();
   await seedExpenseCategory();
