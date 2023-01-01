@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   IonButtons,
   IonButton,
@@ -9,7 +9,6 @@ import {
   IonPage,
   IonItem,
   useIonModal,
-  IonLabel,
   IonInput,
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
@@ -19,10 +18,20 @@ import { Money } from "../../../utils/Money";
 const Modal = ({
   onDismiss,
 }: {
-  onDismiss: (data?: string | null | undefined | number, role?: string) => void;
+  onDismiss: (
+    data?: string | null | undefined | number | {},
+    role?: string
+  ) => void;
 }) => {
-  const inputRef = useRef<HTMLIonInputElement>(null);
-  const [incomeNumber, setIncomeNumber] = useState(0);
+  const [incomeNumber, setIncomeNumber] = useState<string | undefined>(
+    undefined
+  );
+  const [category, setCategory] = useState<string | undefined>(undefined);
+
+  function handleCategoryChange(category: string) {
+    setCategory(category);
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -35,7 +44,7 @@ const Modal = ({
           <IonTitle>Welcome</IonTitle>
           <IonButtons slot="end">
             <IonButton
-              onClick={() => onDismiss(inputRef.current?.value, "confirm")}
+              onClick={() => onDismiss({ incomeNumber, category }, "confirm")}
             >
               Confirm
             </IonButton>
@@ -44,7 +53,10 @@ const Modal = ({
       </IonHeader>
       <IonContent className="ion-padding">
         <IonItem>
-          <Categories {...{ categories: ["abbaco", "ciao", "skrt"] }} />
+          <Categories
+            onCategoryChange={handleCategoryChange}
+            categories={["avvi", "afaf"]}
+          />
         </IonItem>
         <IonItem>
           <IonInput
@@ -55,7 +67,7 @@ const Modal = ({
               e.target.value = Money.inputSanitizer(e.target.value);
               setIncomeNumber(e.target.value);
             }}
-            placeholder="$0"
+            placeholder="$ 0"
             min={0}
           ></IonInput>
         </IonItem>
@@ -65,8 +77,6 @@ const Modal = ({
 };
 
 function AddIncome() {
-  const [category, setCategory] = useState("");
-  const [amount, setAmount] = useState(0);
   const [present, dismiss] = useIonModal(Modal, {
     onDismiss: (data: string, role: string) => dismiss(data, role),
   });
@@ -75,6 +85,13 @@ function AddIncome() {
     present({
       onWillDismiss: (ev: CustomEvent<OverlayEventDetail>) => {
         if (ev.detail.role === "confirm") {
+          const { incomeNumber, category } = ev.detail.data;
+          if (incomeNumber && category)
+            return alert(
+              ` incomeNumber: ${incomeNumber} category: ${category}`
+            );
+          alert("Please fill out all fields");
+          ev.detail.role = "cancel";
         }
       },
     });
