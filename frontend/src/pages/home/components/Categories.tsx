@@ -4,7 +4,7 @@ function Categories(props: any) {
   const handleCategoryChange = props.onCategoryChange;
   return (
     <IonList>
-      <IonItem>
+      <IonItem lines="none">
         <IonSelect
           interface="popover"
           placeholder="Select a Category"

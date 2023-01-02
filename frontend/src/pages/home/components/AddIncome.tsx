@@ -14,6 +14,7 @@ import {
 import { OverlayEventDetail } from "@ionic/core/components";
 import Categories from "./Categories";
 import { Money } from "../../../utils/Money";
+import DateDialog from "./DateDialog";
 
 const Modal = ({
   onDismiss,
@@ -27,10 +28,7 @@ const Modal = ({
     undefined
   );
   const [category, setCategory] = useState<string | undefined>(undefined);
-
-  function handleCategoryChange(category: string) {
-    setCategory(category);
-  }
+  const [date, setDate] = useState<Date>(new Date(Date.now()));
 
   return (
     <IonPage>
@@ -44,7 +42,9 @@ const Modal = ({
           <IonTitle>Welcome</IonTitle>
           <IonButtons slot="end">
             <IonButton
-              onClick={() => onDismiss({ incomeNumber, category }, "confirm")}
+              onClick={() =>
+                onDismiss({ incomeNumber, category, date }, "confirm")
+              }
             >
               Confirm
             </IonButton>
@@ -54,11 +54,13 @@ const Modal = ({
       <IonContent className="ion-padding">
         <IonItem>
           <Categories
-            onCategoryChange={handleCategoryChange}
+            onCategoryChange={(category: any) => {
+              setCategory(category);
+            }}
             categories={["avvi", "afaf"]}
           />
         </IonItem>
-        <IonItem>
+        <IonItem lines="none" style={{ paddingLeft: "4%" }}>
           <IonInput
             inputmode="numeric"
             type="number"
@@ -71,6 +73,13 @@ const Modal = ({
             min={0}
           ></IonInput>
         </IonItem>
+        <DateDialog
+          date={date}
+          setDate={(newDate: Date) => {
+            setDate(newDate);
+          }}
+          dayWindow={30}
+        ></DateDialog>
       </IonContent>
     </IonPage>
   );
@@ -85,10 +94,10 @@ function AddIncome() {
     present({
       onWillDismiss: (ev: CustomEvent<OverlayEventDetail>) => {
         if (ev.detail.role === "confirm") {
-          const { incomeNumber, category } = ev.detail.data;
-          if (incomeNumber && category)
+          const { incomeNumber, category, date } = ev.detail.data;
+          if (incomeNumber && category && date)
             return alert(
-              ` incomeNumber: ${incomeNumber} category: ${category}`
+              ` incomeNumber: ${incomeNumber} category: ${category} date: ${date}`
             );
           alert("Please fill out all fields");
           ev.detail.role = "cancel";
@@ -99,14 +108,9 @@ function AddIncome() {
 
   return (
     <>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Controller Modal</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent className="ion-padding">
         <IonButton expand="block" onClick={() => openModal()}>
-          Open
+          Add Income
         </IonButton>
       </IonContent>
     </>

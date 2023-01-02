@@ -1,5 +1,4 @@
 import {
-  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -60,6 +59,7 @@ const Home: React.FC = () => {
             ></IonIcon>
           </IonFabButton>
         </IonFab>
+        <AddIncome />
         <AddIncome />
       </IonContent>
     </IonPage>
