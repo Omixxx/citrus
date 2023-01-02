@@ -35,7 +35,7 @@ const Modal = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton color="medium" onClick={() => onDismiss(null, "cancel")}>
+            <IonButton onClick={() => onDismiss(null, "cancel")}>
               Cancel
             </IonButton>
           </IonButtons>
@@ -108,11 +108,16 @@ function AddIncome() {
 
   return (
     <>
-      <IonContent className="ion-padding">
-        <IonButton color={"medium"} expand="block" onClick={() => openModal()}>
-          Add Income
-        </IonButton>
-      </IonContent>
+      <IonButton
+        expand="block"
+        class="round"
+        style={{
+          backgroundColor: "#00b3b3",
+        }}
+        onClick={() => openModal()}
+      >
+        Add Income
+      </IonButton>
     </>
   );
 }

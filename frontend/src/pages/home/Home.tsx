@@ -1,13 +1,12 @@
 import {
   IonButton,
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
   IonCol,
   IonContent,
-  IonFab,
-  IonFabButton,
   IonGrid,
   IonIcon,
   IonPage,
@@ -59,13 +58,15 @@ const Home: React.FC = () => {
               paddingLeft: "40%",
               paddingRight: "40%",
             }}
-            color=""
             onClick={() => setOprionNumber(parseInt(`${oprionNumber}`) + 1)}
           >
             <IonIcon icon={add} />
           </IonButton>
         </IonGrid>
-        <AddIncome />
+        <IonButtons>
+          <AddIncome />
+          <AddIncome />
+        </IonButtons>
       </IonContent>
     </IonPage>
   );
