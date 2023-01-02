@@ -1,11 +1,29 @@
-export const Line = (props: { numberOfLines: number }) => {
+import { IonButton, IonIcon } from "@ionic/react";
+import { add } from "ionicons/icons";
+import { useState } from "react";
+
+export const Line = (props: any) => {
+  const [lines, setLines] = useState<number>(0);
   const lineXposition = 10;
   const lineYposition = -15;
   return (
     <>
       <svg width="100%" height="70%">
-        {generateLines(props.numberOfLines, lineXposition, lineYposition)}
+        {generateLines(lines, lineXposition, lineYposition)}
       </svg>
+      <IonButton
+        style={{
+          display: "block",
+          margin: "auto",
+          paddingLeft: "40%",
+          paddingRight: "40%",
+        }}
+        onClick={() => {
+          setLines(lines + 1);
+        }}
+      >
+        <IonIcon icon={add} />
+      </IonButton>
     </>
   );
 

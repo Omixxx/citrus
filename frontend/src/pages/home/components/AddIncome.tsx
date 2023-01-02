@@ -60,7 +60,7 @@ const Modal = ({
             categories={["avvi", "afaf"]}
           />
         </IonItem>
-        <IonItem lines="none" style={{ paddingLeft: "4%" }}>
+        <IonItem style={{ paddingLeft: "4%" }}>
           <IonInput
             inputmode="numeric"
             type="number"
