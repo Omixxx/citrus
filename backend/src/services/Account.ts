@@ -15,7 +15,7 @@ export async function queryAccountById(userId: number) {
 
 export async function createAccount(userId: number) {
   try {
-    let savingModel = await querySavingModelByName("default");
+    let savingModel = await querySavingModelByName("Classic");
     if (!savingModel) {
       throw new Error("saving model not found");
     }

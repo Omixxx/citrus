@@ -38,6 +38,6 @@ export async function createUser(
       },
     });
   } catch (error: any) {
-    throw new Error(`error creating user${error.message}`);
+    throw new Error(`error creating user: \n${error.message}`);
   }
 }
