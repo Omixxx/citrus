@@ -109,7 +109,7 @@ function AddIncome() {
   return (
     <>
       <IonContent className="ion-padding">
-        <IonButton expand="block" onClick={() => openModal()}>
+        <IonButton color={"medium"} expand="block" onClick={() => openModal()}>
           Add Income
         </IonButton>
       </IonContent>

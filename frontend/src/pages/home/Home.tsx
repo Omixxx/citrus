@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -50,16 +51,20 @@ const Home: React.FC = () => {
               <Line {...{ numberOfLines: parseInt(`${oprionNumber}`) }} />
             </IonCol>
           </IonRow>
+
+          <IonButton
+            style={{
+              display: "block",
+              margin: "auto",
+              paddingLeft: "40%",
+              paddingRight: "40%",
+            }}
+            color=""
+            onClick={() => setOprionNumber(parseInt(`${oprionNumber}`) + 1)}
+          >
+            <IonIcon icon={add} />
+          </IonButton>
         </IonGrid>
-        <IonFab slot="fixed" horizontal="center" vertical="center">
-          <IonFabButton color="secondary">
-            <IonIcon
-              icon={add}
-              onClick={() => setOprionNumber(parseInt(`${oprionNumber}`) + 1)}
-            ></IonIcon>
-          </IonFabButton>
-        </IonFab>
-        <AddIncome />
         <AddIncome />
       </IonContent>
     </IonPage>
