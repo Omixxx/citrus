@@ -11,6 +11,6 @@ export async function getBalance(req: any, res: any) {
     let balance = await queryAccontBalanceByUserId(userId);
     return res.status(status.OK).json({ balance: balance });
   } catch (error: any) {
-    throw new Error(error.message);
+    throw new CustomError(error.message, status.NOT_FOUND);
   }
 }
