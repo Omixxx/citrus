@@ -42,7 +42,6 @@ const App: React.FC = () => {
 					<Route exact path="/signup">
 						<Signup />
 					</Route>
-					<Route exact path="/dashboard" component={Home} />
 					<Route exact path="/">
 						<Boot />
 					</Route>

@@ -15,6 +15,7 @@ import { OverlayEventDetail } from "@ionic/core/components";
 import Categories from "./Categories";
 import { Money } from "../../../utils/Money";
 import DateDialog from "./DateDialog";
+import MoneyInput from "./MoneyInput";
 
 const Modal = ({
   onDismiss,
@@ -24,9 +25,7 @@ const Modal = ({
     role?: string
   ) => void;
 }) => {
-  const [incomeNumber, setIncomeNumber] = useState<string | undefined>(
-    undefined
-  );
+  const [income, setIncome] = useState<number | undefined>(undefined);
   const [category, setCategory] = useState<string | undefined>(undefined);
   const [date, setDate] = useState<Date>(new Date(Date.now()));
 
@@ -39,11 +38,11 @@ const Modal = ({
               Cancel
             </IonButton>
           </IonButtons>
-          <IonTitle>Welcome</IonTitle>
+          <IonTitle>Add Your Income</IonTitle>
           <IonButtons slot="end">
             <IonButton
               onClick={() =>
-                onDismiss({ incomeNumber, category, date }, "confirm")
+                onDismiss({ incomeNumber: income, category, date }, "confirm")
               }
             >
               Confirm
@@ -61,17 +60,11 @@ const Modal = ({
           />
         </IonItem>
         <IonItem style={{ paddingLeft: "4%" }}>
-          <IonInput
-            inputmode="numeric"
-            type="number"
-            value={incomeNumber}
-            onIonChange={(e: any) => {
-              e.target.value = Money.inputSanitizer(e.target.value);
-              setIncomeNumber(e.target.value);
+          <MoneyInput
+            onMoneyChange={(money: number) => {
+              setIncome(money);
             }}
-            placeholder="$ 0"
-            min={0}
-          ></IonInput>
+          />
         </IonItem>
         <DateDialog
           date={date}
@@ -97,7 +90,7 @@ function AddIncome() {
           const { incomeNumber, category, date } = ev.detail.data;
           if (incomeNumber && category && date)
             return alert(
-              ` incomeNumber: ${incomeNumber} category: ${category} date: ${date}`
+              `income: ${incomeNumber} \n\ncategory: ${category} \n\ndate: ${date}`
             );
           alert("Please fill out all fields");
           ev.detail.role = "cancel";

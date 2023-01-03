@@ -48,6 +48,7 @@ const Home: React.FC = () => {
         </IonGrid>
         <IonButtons>
           <AddIncome /> <AddIncome />
+          <AddIncome></AddIncome>
         </IonButtons>
       </IonContent>
     </IonPage>
