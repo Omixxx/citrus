@@ -15,8 +15,11 @@ export async function addIncome(req: any, res: any) {
     date: req.body.data,
     accountId: account.id,
   };
-  await updateAccountBalance(account.id, income.amount);
-  await insertIncome(income);
 
-  return res.status(200).send(`income succesfully added`);
+  await insertIncome(income);
+  const updatedAccount = await updateAccountBalance(account.id, income.amount);
+
+  return res
+    .status(200)
+    .send(`income succesfully added`, updatedAccount.balance);
 }

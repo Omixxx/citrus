@@ -96,10 +96,11 @@ const Modal = ({
   );
 };
 
-function AddIncome() {
+function AddIncome(props: any) {
   const [present, dismiss] = useIonModal(Modal, {
     onDismiss: (data: string, role: string) => dismiss(data, role),
   });
+  const onIncomeAdd = props.onIncomeAdd;
 
   function openModal() {
     present({
@@ -111,7 +112,12 @@ function AddIncome() {
               `income: ${incomeNumber} \n\ncategory: ${categoryId} \n\ndate: ${date}`
             );
 
-            return await addIncome(incomeNumber, categoryId, date);
+            const updatedBalance = await addIncome(
+              incomeNumber,
+              categoryId,
+              date
+            );
+            return await onIncomeAdd(updatedBalance);
           }
           alert("Please fill out all fields");
           ev.detail.role = "cancel";

@@ -6,7 +6,7 @@ export async function addIncome(
   data: Date
 ) {
   try {
-    return await axios.post(
+    const res = await axios.post(
       `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/income/addIncome`,
       {
         amount,
@@ -14,7 +14,8 @@ export async function addIncome(
         data,
       }
     );
+    return res.data.balance;
   } catch (error) {
-    alert(error);
+    alert("ff" + error);
   }
 }
