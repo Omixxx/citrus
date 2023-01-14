@@ -9,13 +9,12 @@ import {
   IonPage,
   IonItem,
   useIonModal,
-  IonInput,
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import Categories from "./Categories";
-import { Money } from "../../../utils/Money";
 import DateDialog from "./DateDialog";
 import MoneyInput from "./MoneyInput";
+import { getIncomeCategories } from "../../../services/categories/getIncomeCategories";
 
 const Modal = ({
   onDismiss,
@@ -26,8 +25,14 @@ const Modal = ({
   ) => void;
 }) => {
   const [income, setIncome] = useState<number | undefined>(undefined);
-  const [category, setCategory] = useState<string | undefined>(undefined);
+  const [chosenCategory, setChosenCategory] = useState<string | undefined>(
+    undefined
+  );
   const [date, setDate] = useState<Date>(new Date(Date.now()));
+  const [categories, setCategories] = useState<string[]>(["lucio"]);
+  const categories$ = getIncomeCategories();
+  categories$.subscribe((categories: any) => setCategories(categories));
+  alert(categories);
 
   return (
     <IonPage>
@@ -42,7 +47,10 @@ const Modal = ({
           <IonButtons slot="end">
             <IonButton
               onClick={() =>
-                onDismiss({ incomeNumber: income, category, date }, "confirm")
+                onDismiss(
+                  { incomeNumber: income, category: chosenCategory, date },
+                  "confirm"
+                )
               }
             >
               Confirm
@@ -53,10 +61,10 @@ const Modal = ({
       <IonContent className="ion-padding">
         <IonItem>
           <Categories
-            onCategoryChange={(category: any) => {
-              setCategory(category);
+            onCategoryChange={(chosenCategory: any) => {
+              setChosenCategory(chosenCategory);
             }}
-            categories={["avvi", "afaf"]}
+            categories={categories}
           />
         </IonItem>
         <IonItem style={{ paddingLeft: "4%" }}>
@@ -105,7 +113,7 @@ function AddIncome() {
         expand="block"
         class="round"
         style={{
-          backgroundColor: "#00b3b3",
+          backgroundColor: "#23b4b6",
         }}
         onClick={() => openModal()}
       >
