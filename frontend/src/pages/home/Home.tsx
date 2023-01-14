@@ -23,7 +23,7 @@ const Home: React.FC = () => {
       setBalance(await getBalance());
     }
     init();
-  }, []);
+  }, [balance]);
 
   return (
     <IonPage>

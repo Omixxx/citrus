@@ -40,3 +40,20 @@ export async function queryAccontBalanceByUserId(userId: number) {
     throw new Error(`not able to get account balance, ${error.message}`);
   }
 }
+
+export async function updateAccountBalance(accountId: number, amount: number) {
+  try {
+    return await db.account.update({
+      where: {
+        id: accountId,
+      },
+      data: {
+        balance: {
+          increment: amount,
+        },
+      },
+    });
+  } catch (error: any) {
+    throw new Error(`not able to update account balance, ${error.message}`);
+  }
+}

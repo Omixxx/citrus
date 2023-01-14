@@ -110,6 +110,7 @@ function AddIncome() {
             alert(
               `income: ${incomeNumber} \n\ncategory: ${categoryId} \n\ndate: ${date}`
             );
+
             return await addIncome(incomeNumber, categoryId, date);
           }
           alert("Please fill out all fields");
