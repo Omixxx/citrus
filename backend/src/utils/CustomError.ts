@@ -1,7 +1,7 @@
-class CustomError extends Error {
-  errorEtatus: number;
-  constructor(message: string, public status: number) {
+export default class CustomError extends Error {
+  status: number;
+  constructor(message: string, status?: number | undefined) {
     super(message);
-    this.errorEtatus = status;
+    this.status = status || 500;
   }
 }

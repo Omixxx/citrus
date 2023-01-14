@@ -1,3 +1,4 @@
+import CustomError from "../utils/CustomError";
 import { queryAccontBalanceByUserId } from "../services/Account";
 import status from "http-status";
 import { Jwt } from "../utils/Jwt";

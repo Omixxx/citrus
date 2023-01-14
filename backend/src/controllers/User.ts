@@ -6,6 +6,7 @@ import {
   queryUserById,
 } from "../services/User";
 import { createAccount } from "../services/Account";
+import CustomError from "../utils/CustomError";
 
 let Hashes = require("jshashes");
 const SHA256 = new Hashes.SHA256();

@@ -22,6 +22,7 @@
     "http-status": "^1.5.3",
     "jshashes": "^1.0.8",
     "jsonwebtoken": "^8.5.1",
+    "rxjs": "^7.8.0",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
