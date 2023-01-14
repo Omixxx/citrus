@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IonButtons,
   IonButton,
@@ -15,6 +15,7 @@ import Categories from "./Categories";
 import DateDialog from "./DateDialog";
 import MoneyInput from "./MoneyInput";
 import { getIncomeCategories } from "../../../services/categories/getIncomeCategories";
+import { addIncome } from "../../../services/account/addIncome";
 
 const Modal = ({
   onDismiss,
@@ -25,14 +26,23 @@ const Modal = ({
   ) => void;
 }) => {
   const [income, setIncome] = useState<number | undefined>(undefined);
-  const [chosenCategory, setChosenCategory] = useState<string | undefined>(
+  const [chosenCategoryId, setChosenCategoryId] = useState<number | undefined>(
     undefined
   );
   const [date, setDate] = useState<Date>(new Date(Date.now()));
-  const [categories, setCategories] = useState<string[]>(["lucio"]);
-  const categories$ = getIncomeCategories();
-  categories$.subscribe((categories: any) => setCategories(categories));
-  alert(categories);
+  const [categories, setCategories] = useState<[{}]>([{}]);
+
+  useEffect(() => {
+    const getIncCategories = async () => {
+      try {
+        const cagegories = await getIncomeCategories();
+        setCategories(cagegories);
+      } catch (err) {
+        alert(`error while fetching categories from the server: ${err}`);
+      }
+    };
+    getIncCategories();
+  }, []);
 
   return (
     <IonPage>
@@ -48,7 +58,7 @@ const Modal = ({
             <IonButton
               onClick={() =>
                 onDismiss(
-                  { incomeNumber: income, category: chosenCategory, date },
+                  { incomeNumber: income, category: chosenCategoryId, date },
                   "confirm"
                 )
               }
@@ -62,7 +72,7 @@ const Modal = ({
         <IonItem>
           <Categories
             onCategoryChange={(chosenCategory: any) => {
-              setChosenCategory(chosenCategory);
+              setChosenCategoryId(chosenCategory);
             }}
             categories={categories}
           />
@@ -93,13 +103,15 @@ function AddIncome() {
 
   function openModal() {
     present({
-      onWillDismiss: (ev: CustomEvent<OverlayEventDetail>) => {
+      onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
         if (ev.detail.role === "confirm") {
-          const { incomeNumber, category, date } = ev.detail.data;
-          if (incomeNumber && category && date)
-            return alert(
-              `income: ${incomeNumber} \n\ncategory: ${category} \n\ndate: ${date}`
+          const { incomeNumber, category: categoryId, date } = ev.detail.data;
+          if (incomeNumber && categoryId && date) {
+            alert(
+              `income: ${incomeNumber} \n\ncategory: ${categoryId} \n\ndate: ${date}`
             );
+            return await addIncome(incomeNumber, categoryId, date);
+          }
           alert("Please fill out all fields");
           ev.detail.role = "cancel";
         }
@@ -113,7 +125,7 @@ function AddIncome() {
         expand="block"
         class="round"
         style={{
-          backgroundColor: "#23b4b6",
+          backgroundColor: "#18b8b6",
         }}
         onClick={() => openModal()}
       >

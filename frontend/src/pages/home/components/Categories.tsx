@@ -20,7 +20,7 @@ function Categories(props: any) {
 
   function getCategories() {
     return categories.map((category: any) => (
-      <IonSelectOption value={category}>{category}</IonSelectOption>
+      <IonSelectOption value={category.id}>{category.name}</IonSelectOption>
     ));
   }
 }
