@@ -1,7 +1,5 @@
-import { Account } from "@prisma/client";
 import { db } from "../config/db.server";
 import CustomError from "../utils/CustomError";
-import { updateAccountBalance } from "./Account";
 
 export async function insertIncome(income: any, accountId: number) {
   try {
@@ -10,15 +8,18 @@ export async function insertIncome(income: any, accountId: number) {
         data: income,
       });
 
-      const updatedAccount: Account = await updateAccountBalance(
-        transaction,
-        income.amount,
-        accountId
-      );
+      const updatedAccount = await transaction.account.update({
+        where: { id: accountId },
+        data: {
+          balance: {
+            increment: income.amount,
+          },
+        },
+      });
 
       return {
         income: addedIncome.amount,
-        accountId: updatedAccount.balance,
+        accountId: updatedAccount.id,
         currentBalance: updatedAccount.balance,
       };
     });

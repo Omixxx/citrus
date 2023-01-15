@@ -17,10 +17,11 @@ export async function addIncome(req: any, res: any) {
     accountId: account.id,
   };
   let transaction: any;
+
   try {
     transaction = await insertIncome(income, account.id);
   } catch (error: any) {
     throw new CustomError(`Income insetion failed`, error, 400);
   }
-  return res.status(200).send(`income succesfully added`, { transaction });
+  return res.status(200).send({ transaction });
 }

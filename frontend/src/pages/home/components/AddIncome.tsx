@@ -108,16 +108,12 @@ function AddIncome(props: any) {
         if (ev.detail.role === "confirm") {
           const { incomeNumber, category: categoryId, date } = ev.detail.data;
           if (incomeNumber && categoryId && date) {
-            alert(
-              `income: ${incomeNumber} \n\ncategory: ${categoryId} \n\ndate: ${date}`
-            );
-
-            const updatedBalance = await addIncome(
-              incomeNumber,
-              categoryId,
-              date
-            );
-            return await onIncomeAdd(updatedBalance);
+            const result = await addIncome(incomeNumber, categoryId, date);
+            if (result) {
+              alert(`income added successfully`);
+              return await onIncomeAdd(result.balance);
+            }
+            return alert(`error while adding income`);
           }
           alert("Please fill out all fields");
           ev.detail.role = "cancel";

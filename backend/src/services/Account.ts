@@ -44,24 +44,3 @@ export async function queryAccontBalanceByUserId(userId: number) {
     throw new CustomError(`not able to get account balance`, error);
   }
 }
-
-export async function updateAccountBalance(
-  transaction: any,
-  accountId: number,
-  amount: number
-) {
-  try {
-    return await transaction.account.update({
-      where: {
-        id: accountId,
-      },
-      data: {
-        balance: {
-          increment: amount,
-        },
-      },
-    });
-  } catch (error: any) {
-    throw new CustomError(`not able to update account balance`, error);
-  }
-}
