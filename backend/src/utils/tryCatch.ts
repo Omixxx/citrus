@@ -1,9 +1,9 @@
-export const tryCatch = (functionToTry: any) => {
+export default function tryCatch(controller: (req: any, res: any) => any) {
   return async (req: any, res: any, next: any) => {
     try {
-      await functionToTry(req, res, next);
-    } catch (error) {
-      return next(error);
+      await controller(req, res);
+    } catch (err) {
+      next(err);
     }
   };
-};
+}

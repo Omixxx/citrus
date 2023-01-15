@@ -1,7 +1,10 @@
+import chalk from "chalk";
+
 export default class CustomError extends Error {
-  status: number;
-  constructor(message: string, status?: number | undefined) {
-    super(message);
-    this.status = status || 500;
+  public status: number;
+
+  constructor(message: string, error: any = undefined, status: number = 500) {
+    super(`${chalk.blue(`--> `)}${chalk.red(message)}\n${error?.message}`);
+    this.status = status;
   }
 }

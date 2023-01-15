@@ -1,4 +1,5 @@
 import { db } from "../config/db.server";
+import CustomError from "../utils/CustomError";
 
 export async function createSavingModel(name: string, percentage: number) {
   try {
@@ -9,7 +10,7 @@ export async function createSavingModel(name: string, percentage: number) {
       },
     });
   } catch (error: any) {
-    throw new Error(`error creating saving model ${error.message}`);
+    throw new CustomError(`error creating saving model `, error);
   }
 }
 
@@ -21,7 +22,7 @@ export async function querySavingModelByName(name: string) {
       },
     });
   } catch (error: any) {
-    throw new Error(`saving model not found${error.message}`);
+    throw new CustomError(`saving model not found`, error);
   }
 }
 
@@ -33,6 +34,6 @@ export async function querySavingModelByPercentage(percentage: number) {
       },
     });
   } catch (error: any) {
-    throw new Error(`saving model not found${error.message}`);
+    throw new CustomError(`saving model not found`, error);
   }
 }
