@@ -13,5 +13,5 @@ export function errorHandler(
       error.status
     )}`
   );
-  return res.status(error.status).send(error.message);
+  return res.status(error.status).send(error);
 }

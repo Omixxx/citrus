@@ -15,6 +15,7 @@ import { getBalance } from "../../services/account/getBalance";
 import { Line } from "./components/Line";
 import "./Home.css";
 import AddIncome from "./components/AddIncome";
+import AddExpense from "./components/AddExpense";
 
 const Home: React.FC = () => {
   const [balance, setBalance] = useState(0);
@@ -48,8 +49,13 @@ const Home: React.FC = () => {
         </IonGrid>
         <IonButtons>
           <AddIncome
-            onIncomeAdd={(income: number) => {
-              setBalance(income);
+            onIncomeAdd={(newBalance: number) => {
+              setBalance(newBalance);
+            }}
+          />
+          <AddExpense
+            onExpenseAdd={(newBalance: number) => {
+              setBalance(newBalance);
             }}
           />
         </IonButtons>

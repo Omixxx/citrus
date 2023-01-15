@@ -1,14 +1,10 @@
 import express from "express";
-import {
-  getExpenseCategories,
-  getIncomeCategories,
-} from "../controllers/Categories";
+import { addExpense } from "../controllers/Expense";
 import { errorHandler } from "../middleware/errorHandler";
 import tryCatch from "../utils/tryCatch";
 const router = express.Router();
 
-router.get("/income", tryCatch(getIncomeCategories));
-router.get("/expense", tryCatch(getExpenseCategories));
+router.post("/addExpense", tryCatch(addExpense));
 
 router.use(errorHandler);
 

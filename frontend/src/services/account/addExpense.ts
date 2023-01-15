@@ -1,13 +1,13 @@
 import axios from "axios";
 
-export async function addIncome(
+export default async function addExpense(
   amount: number,
   categoryId: number,
   date: Date
 ) {
   return await axios
     .post(
-      `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/income/addIncome`,
+      `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/expense/addExpense`,
       {
         amount,
         categoryId,
@@ -18,6 +18,6 @@ export async function addIncome(
       return response.data;
     })
     .catch((error) => {
-      alert(error);
+      alert(error.message);
     });
 }

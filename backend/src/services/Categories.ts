@@ -8,3 +8,11 @@ export async function queryIncomeCategories() {
     throw new CustomError(`error while fetchin categories`, err);
   }
 }
+
+export async function queryExpenseCategories() {
+  try {
+    return await db.expenseCategory.findMany();
+  } catch (err: any) {
+    throw new CustomError(`error while fetchin categories`, err);
+  }
+}

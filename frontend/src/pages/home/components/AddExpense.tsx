@@ -14,8 +14,8 @@ import { OverlayEventDetail } from "@ionic/core/components";
 import Categories from "./Categories";
 import DateDialog from "./DateDialog";
 import MoneyInput from "./MoneyInput";
-import { getIncomeCategories } from "../../../services/categories/getIncomeCategories";
-import { addIncome } from "../../../services/account/addIncome";
+import addExpense from "../../../services/account/addExpense";
+import { getExpenseCategories } from "../../../services/categories/getExpenseCategories";
 
 const Modal = ({
   onDismiss,
@@ -25,7 +25,7 @@ const Modal = ({
     role?: string
   ) => void;
 }) => {
-  const [income, setIncome] = useState<number | undefined>(undefined);
+  const [expense, setExpense] = useState<number | undefined>(undefined);
   const [chosenCategoryId, setChosenCategoryId] = useState<number | undefined>(
     undefined
   );
@@ -33,16 +33,16 @@ const Modal = ({
   const [categories, setCategories] = useState<[{}]>([{}]);
 
   useEffect(() => {
-    const getIncCategories = async () => {
+    const getExpCategories = async () => {
       try {
-        const cagegories = await getIncomeCategories();
+        const cagegories = await getExpenseCategories();
         setCategories(cagegories);
       } catch (err) {
         alert(`error while fetching categories from the server: ${err}`);
         onDismiss(null, "cancel");
       }
     };
-    getIncCategories();
+    getExpCategories();
   }, []);
 
   return (
@@ -54,11 +54,11 @@ const Modal = ({
               Cancel
             </IonButton>
           </IonButtons>
-          <IonTitle>Add Your Income</IonTitle>
+          <IonTitle>Add Your Expense</IonTitle>
           <IonButtons slot="end">
             <IonButton
               onClick={() =>
-                onDismiss({ income, chosenCategoryId, date }, "confirm")
+                onDismiss({ expense, chosenCategoryId, date }, "confirm")
               }
             >
               Confirm
@@ -78,7 +78,7 @@ const Modal = ({
         <IonItem style={{ paddingLeft: "4%" }}>
           <MoneyInput
             onMoneyChange={(money: number) => {
-              setIncome(money);
+              setExpense(money);
             }}
           />
         </IonItem>
@@ -94,24 +94,24 @@ const Modal = ({
   );
 };
 
-function AddIncome(props: any) {
+function AddExpense(props: any) {
   const [present, dismiss] = useIonModal(Modal, {
     onDismiss: (data: string, role: string) => dismiss(data, role),
   });
-  const onIncomeAdd = props.onIncomeAdd;
+  const onExpenseAdd = props.onExpenseAdd;
 
   function openModal() {
     present({
       onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
         if (ev.detail.role === "confirm") {
-          const { income, chosenCategoryId, date } = ev.detail.data;
-          if (income && chosenCategoryId && date) {
-            const result = await addIncome(income, chosenCategoryId, date);
+          const { expense, chosenCategoryId, date } = ev.detail.data;
+          if (expense && chosenCategoryId && date) {
+            const result = await addExpense(expense, chosenCategoryId, date);
             if (result) {
-              alert(`income added successfully`);
-              return await onIncomeAdd(result.balance);
+              alert(`expense added successfully`);
+              return await onExpenseAdd(result.balance);
             }
-            return alert(`error while adding income`);
+            return alert(`error while adding expense`);
           }
           alert("Please fill out all fields");
           ev.detail.role = "cancel";
@@ -126,14 +126,14 @@ function AddIncome(props: any) {
         expand="block"
         class="round"
         style={{
-          backgroundColor: "#18b8b6",
+          backgroundColor: "#3338b6",
         }}
         onClick={() => openModal()}
       >
-        Add Income
+        Add Expense
       </IonButton>
     </>
   );
 }
 
-export default AddIncome;
+export default AddExpense;
