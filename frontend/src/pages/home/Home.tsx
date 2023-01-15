@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonButtons,
   IonCard,
   IonCardContent,
@@ -16,9 +17,12 @@ import { Line } from "./components/Line";
 import "./Home.css";
 import AddIncome from "./components/AddIncome";
 import AddExpense from "./components/AddExpense";
+import { useHistory } from "react-router";
 
 const Home: React.FC = () => {
   const [balance, setBalance] = useState(0);
+  const history = useHistory();
+
   useEffect(() => {
     async function init() {
       setBalance(await getBalance());
@@ -48,6 +52,14 @@ const Home: React.FC = () => {
           </IonRow>
         </IonGrid>
         <IonButtons>
+          <IonButton
+            color="secondary"
+            onClick={() => {
+              history.replace("/expenditure_and_incomes");
+            }}
+          >
+            Transactions
+          </IonButton>
           <AddIncome
             onIncomeAdd={(newBalance: number) => {
               setBalance(newBalance);

@@ -31,3 +31,15 @@ export async function insertExpense(expense: any, accountId: number) {
     throw new CustomError(`Error during the transaction: `, err);
   }
 }
+
+export async function queryExpenses(accountId: number) {
+  try {
+    return await db.expense.findMany({
+      where: {
+        accountId: accountId,
+      },
+    });
+  } catch (err: any) {
+    throw new CustomError(`Error while fetching the data from db`, err);
+  }
+}
