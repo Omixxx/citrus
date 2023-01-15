@@ -1,10 +1,10 @@
 import express from "express";
-import { getBalance } from "../controllers/Account";
+import { addExpense } from "../controllers/Expense";
 import { errorHandler } from "../middleware/errorHandler";
 import tryCatch from "../utils/tryCatch";
 const router = express.Router();
 
-router.get("/balance", tryCatch(getBalance));
+router.post("/addExpense", tryCatch(addExpense));
 
 router.use(errorHandler);
 

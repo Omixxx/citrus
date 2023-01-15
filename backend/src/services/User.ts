@@ -1,4 +1,5 @@
 import { db } from "../config/db.server";
+import CustomError from "../utils/CustomError";
 
 export function queryUserByEmailAddress(email: string) {
   try {
@@ -8,7 +9,7 @@ export function queryUserByEmailAddress(email: string) {
       },
     });
   } catch (error: any) {
-    throw new Error(`User Not found ${error.message}`);
+    throw new CustomError(`User Not found `, error);
   }
 }
 
@@ -20,7 +21,7 @@ export async function queryUserById(id: number) {
       },
     });
   } catch (error: any) {
-    throw new Error(`User Not found ${error.message}`);
+    throw new CustomError(`User Not found `, error);
   }
 }
 
@@ -38,6 +39,6 @@ export async function createUser(
       },
     });
   } catch (error: any) {
-    throw new Error(`error creating user${error.message}`);
+    throw new CustomError(`error creating user: \n`, error);
   }
 }

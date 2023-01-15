@@ -1,6 +1,6 @@
 import express from "express";
 import { errorHandler } from "../middleware/errorHandler";
-import { tryCatch } from "../utils/tryCatch";
+import tryCatch from "../utils/tryCatch";
 
 const router = express.Router();
 import {

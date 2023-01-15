@@ -14,7 +14,7 @@ export function login(email: string, password: string, history: any) {
       alert(`User logged in successfully ${res.status}`);
       alert(`token is ${res.data.token}`);
       storeJwt(res.data.token);
-      history.push("/home");
+      history.replace("/home");
     })
     .catch((err) => {
       alert(err.message);

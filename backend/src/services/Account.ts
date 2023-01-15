@@ -1,4 +1,5 @@
 import { db } from "../config/db.server";
+import CustomError from "../utils/CustomError";
 import { querySavingModelByName } from "./SavingModel";
 
 export async function queryAccountById(userId: number) {
@@ -9,15 +10,15 @@ export async function queryAccountById(userId: number) {
       },
     });
   } catch (error: any) {
-    throw new Error(`account not found for user with id: ${userId}`);
+    throw new CustomError(`account not found for user with id: ${userId}`);
   }
 }
 
 export async function createAccount(userId: number) {
   try {
-    let savingModel = await querySavingModelByName("default");
+    let savingModel = await querySavingModelByName("Classic");
     if (!savingModel) {
-      throw new Error("saving model not found");
+      throw new CustomError("saving model not found");
     }
     return await db.account.create({
       data: {
@@ -26,17 +27,20 @@ export async function createAccount(userId: number) {
       },
     });
   } catch (error: any) {
-    throw new Error(`error creating account ${error.message}`);
+    throw new CustomError(
+      `error creating account ${error.message}`,
+      error.stack
+    );
   }
 }
 
 export async function queryAccontBalanceByUserId(userId: number) {
   try {
     let account = await queryAccountById(userId);
-    if (!account) throw new Error("account not found");
+    if (!account) throw new CustomError("account not found");
 
     return account.balance;
   } catch (error: any) {
-    throw new Error(`not able to get account balance, ${error.message}`);
+    throw new CustomError(`not able to get account balance`, error);
   }
 }

@@ -1,14 +1,12 @@
 import {
+  IonButtons,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
   IonCol,
   IonContent,
-  IonFab,
-  IonFabButton,
   IonGrid,
-  IonIcon,
   IonPage,
   IonRow,
 } from "@ionic/react";
@@ -16,17 +14,17 @@ import { useEffect, useState } from "react";
 import { getBalance } from "../../services/account/getBalance";
 import { Line } from "./components/Line";
 import "./Home.css";
-import { add } from "ionicons/icons";
+import AddIncome from "./components/AddIncome";
+import AddExpense from "./components/AddExpense";
 
 const Home: React.FC = () => {
-  const [modNumber, setModNumber] = useState(0);
   const [balance, setBalance] = useState(0);
   useEffect(() => {
     async function init() {
       setBalance(await getBalance());
     }
     init();
-  }, []);
+  }, [balance]);
 
   return (
     <IonPage>
@@ -45,19 +43,22 @@ const Home: React.FC = () => {
                   className="ion-text-center"
                 ></IonCardContent>
               </IonCard>
-
-              <Line {...{ numberOfLines: parseInt(`${modNumber}`) }} />
+              <Line />
             </IonCol>
           </IonRow>
         </IonGrid>
-        <IonFab slot="fixed" horizontal="center" vertical="center">
-          <IonFabButton color="secondary">
-            <IonIcon
-              icon={add}
-              onClick={() => setModNumber(parseInt(`${modNumber}`) + 1)}
-            ></IonIcon>
-          </IonFabButton>
-        </IonFab>{" "}
+        <IonButtons>
+          <AddIncome
+            onIncomeAdd={(newBalance: number) => {
+              setBalance(newBalance);
+            }}
+          />
+          <AddExpense
+            onExpenseAdd={(newBalance: number) => {
+              setBalance(newBalance);
+            }}
+          />
+        </IonButtons>
       </IonContent>
     </IonPage>
   );

@@ -1,7 +1,7 @@
 import { IonContent, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { BiLogIn } from "react-icons/bi";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { login } from "../../services/user/login";
 import { CustomIonicInput } from "./components/CustomIonicInput";
 import { CustomIonicButton } from "./components/CustomIonicButton";
@@ -44,7 +44,7 @@ const Login: React.FC = () => {
         />
         <div className="ion-text-center">don't have an account?</div>
         <div className="ion-text-center">
-          <a href="/signup">Register</a>
+          <Link to="/signup">Register</Link>
         </div>
       </IonContent>
     </IonPage>

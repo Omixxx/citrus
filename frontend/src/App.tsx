@@ -21,7 +21,6 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import ExpenditureAndIncome from "./pages/expenditure_and_incomes/ExprenditureAndIncome";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Boot from "./components/Boot";
@@ -42,7 +41,6 @@ const App: React.FC = () => {
 					<Route exact path="/signup">
 						<Signup />
 					</Route>
-					<Route exact path="/dashboard" component={Home} />
 					<Route exact path="/">
 						<Boot />
 					</Route>

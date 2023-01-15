@@ -27,8 +27,11 @@ model Account {
   ownerId       Int         @unique
   savingModel   SavingModel @relation(fields: [savingModelId], references: [id])
   savingModelId Int
+  savings       Int         @default(0)
   dayWindow     Int         @default(30)
   option        Option[]
+  expense       Expense[]
+  income        Income[]
 }
 
 model SavingModel {
@@ -56,6 +59,8 @@ model Expense {
   amount     Int
   category   ExpenseCategory @relation(fields: [categoryId], references: [id])
   categoryId Int
+  account    Account         @relation(fields: [accountId], references: [id])
+  accountId  Int
 }
 
 model ExpenseCategory {
@@ -74,6 +79,8 @@ model Income {
   amount     Int
   category   IncomeCategory @relation(fields: [categoryId], references: [id])
   categoryId Int
+  account    Account        @relation(fields: [accountId], references: [id])
+  accountId  Int
 }
 
 model IncomeCategory {

@@ -1,22 +1,9 @@
 import { db } from "../src/config/db.server";
 
-type User = {
-  username: string;
-};
-
-//tutto questo casino per rendere il mapping asincrono. ogni procedura di creazione deve essere
-//asincrona.
 async function main() {
-  const entrys = await Promise.all(
-    getUsers().map(async (user) => {
-      return await db.user.create({
-        data: {
-          username: user.username,
-        },
-      });
-    })
-  );
-  console.log(entrys);
+  seedIncomeCategory();
+  seedExpenseCategory();
+  seedSavingModels();
 }
 
 main()
@@ -29,13 +16,81 @@ main()
     process.exit(1);
   });
 
-function getUsers(): Array<User> {
-  return [
-    {
-      username: "tut",
-    },
-    {
-      username: "ki",
-    },
-  ];
+async function seedIncomeCategory() {
+  try {
+    return await db.incomeCategory.createMany({
+      data: [
+        {
+          name: "Salary",
+        },
+        {
+          name: "Investments",
+        },
+        {
+          name: "Savings",
+        },
+        {
+          name: " Gifts",
+        },
+        {
+          name: " Other",
+        },
+      ],
+    });
+  } catch (e) {
+    console.log(" error in seedIncomeCategory");
+  }
+}
+
+async function seedExpenseCategory() {
+  try {
+    return await db.expenseCategory.createMany({
+      data: [
+        {
+          name: "Food",
+        },
+        {
+          name: "Transportation",
+        },
+        {
+          name: "Housing",
+        },
+        {
+          name: "Utilities",
+        },
+        {
+          name: "Bills",
+        },
+      ],
+    });
+  } catch (e) {
+    console.log(" error in seedExpenseCategory");
+  }
+}
+
+async function seedSavingModels() {
+  try {
+    return await db.savingModel.createMany({
+      data: [
+        {
+          name: "Classic ",
+          percentage: 10,
+        },
+        {
+          name: "Aggressive",
+          percentage: 50,
+        },
+        {
+          name: "Conservative",
+          percentage: 5,
+        },
+        {
+          name: "None",
+          percentage: 0,
+        },
+      ],
+    });
+  } catch (e) {
+    console.error(" error in seedSavingModels");
+  }
 }

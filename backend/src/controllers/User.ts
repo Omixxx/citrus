@@ -6,6 +6,7 @@ import {
   queryUserById,
 } from "../services/User";
 import { createAccount } from "../services/Account";
+import CustomError from "../utils/CustomError";
 
 let Hashes = require("jshashes");
 const SHA256 = new Hashes.SHA256();
@@ -27,8 +28,7 @@ export function isAuthenticated(req: any, res: any) {
   const token = req.headers.authorization;
 
   if (!token || !jwt.verify(token))
-    throw new Error("User is not authenticated");
-
+    throw new CustomError("User is not authenticated", status.UNAUTHORIZED);
   return res.status(status.OK).send();
 }
 
@@ -52,7 +52,6 @@ export async function getUsername(req: any, res: any) {
     return res.status(status.UNAUTHORIZED).send();
   }
   const userId = jwt.getUserId(token);
-  console.log(`userId: ${userId}`);
   const user = await queryUserById(userId);
   if (user === null) {
     return res.status(status.NOT_FOUND).send();

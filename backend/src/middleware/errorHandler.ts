@@ -1,7 +1,17 @@
-import status from "http-status";
+import CustomError from "../utils/CustomError";
+import chalk from "chalk";
 
-export const errorHandler = (err: any, req: any, res: any, next: any) => {
-  console.log(`err message: ${err.message}`);
-
-  res.status(status.NOT_FOUND).send(err.message);
-};
+export function errorHandler(
+  error: CustomError,
+  req: any,
+  res: any,
+  next: any
+) {
+  console.log(
+    `${error.message} \n ${chalk.blue(`--> `)}${chalk.yellow(
+      `return status:`,
+      error.status
+    )}`
+  );
+  return res.status(error.status).send(error);
+}
