@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import {
   IonBackButton,
   IonButtons,
+  IonChip,
   IonContent,
   IonHeader,
   IonInfiniteScroll,
@@ -12,23 +13,22 @@ import {
   IonPage,
   IonToolbar,
 } from "@ionic/react";
-import chalk from "chalk";
 import getIncomes from "../../services/income/getIncomes";
 import getExpenses from "../../services/expense/getExpenses";
 import { isoTOddmmyyyy } from "../../utils/isoToUeDateConvertion";
 import "./ExpenditureAndIncome.css";
 
-const ExpenditureAndIncome: React.FC = (props: { view?: string }) => {
+const ExpenditureAndIncome: React.FC = () => {
   const [expenses, setExpenses] = React.useState<Object[]>([]);
   const [incomes, setIncomes] = React.useState<Object[]>([]);
   const [view, setView] = React.useState<string>("");
 
-  if (props.view) setView(props.view);
-
   useEffect(() => {
     const fetch = async () => {
-      setExpenses(await getExpenses());
-      setIncomes(await getIncomes());
+      const expenses = await getExpenses();
+      const incomes = await getIncomes();
+      addTypeProperty("income", incomes, setIncomes);
+      addTypeProperty("expense", expenses, setExpenses);
     };
     fetch();
   }, []);
@@ -57,48 +57,45 @@ const ExpenditureAndIncome: React.FC = (props: { view?: string }) => {
 
   function generateList() {
     if (expenses.length !== 0 || incomes.length !== 0) {
-      return mergeExpenseAndIncome(expenses, incomes, view);
-    }
-  }
-
-  function mergeExpenseAndIncome(
-    listOfExpense: any,
-    listOfIncome: any,
-    view: string
-  ) {
-    if (view === "expense") {
-      return listOfExpense.map(
-        listOfExpense.map((expense: any) => {
-          return (
-            <IonItem>
-              <IonLabel>{expense.id}</IonLabel>
-              <IonLabel>{isoTOddmmyyyy(expense.date)}</IonLabel>
-              <IonLabel>{chalk.red(expense.amount)}</IonLabel>
-            </IonItem>
-          );
-        })
-      );
-    }
-    if (view === "income") {
-      return listOfIncome.map((income: any) => {
+      const mergedList = mergeExpenseAndIncome(expenses, incomes);
+      return mergedList.map((item: any) => {
         return (
-          <IonItem>
-            <IonLabel>{income.id}</IonLabel>
-            <IonLabel>{isoTOddmmyyyy(income.date)}</IonLabel>
-            <IonLabel style={{ color: "green" }}> + {income.amount}</IonLabel>
+          <IonItem key={item.id}>
+            <IonLabel>
+              {item.type === "expense" ? (
+                <big style={{ color: "red" }}>{` - ${item.amount}`}</big>
+              ) : (
+                <big style={{ color: "green" }}>{` + ${item.amount}`}</big>
+              )}
+              <p>{isoTOddmmyyyy(item.date)}</p>
+            </IonLabel>
+            <IonLabel>
+              <IonChip color="primary">Category</IonChip>
+            </IonLabel>
           </IonItem>
         );
       });
     }
-    return listOfExpense.concat(listOfIncome).map((expense: any) => {
-      return (
-        <IonItem>
-          <IonLabel>{expense.id}</IonLabel>
-          <IonLabel>{isoTOddmmyyyy(expense.date)}</IonLabel>
-          <IonLabel style={{ color: "red" }}> - {expense.amount}</IonLabel>
-        </IonItem>
-      );
+    return <IonItem>No data</IonItem>;
+  }
+
+  function mergeExpenseAndIncome(listOfExpense: any, listOfIncome: any) {
+    let mergedList = listOfExpense.concat(listOfIncome);
+
+    return mergedList.sort((a: any, b: any) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
+  }
+
+  function addTypeProperty(type: string, list: any, setList: any) {
+    const mylist = list;
+    mylist.forEach((item: any) => {
+      return {
+        ...item,
+        type: type,
+      };
+    });
+    setList(mylist);
   }
 };
 
