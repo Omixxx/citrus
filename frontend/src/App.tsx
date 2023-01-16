@@ -25,6 +25,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Boot from "./components/Boot";
 import ExpenditureAndIncome from "./pages/expenditure_and_incomes/ExprenditureAndIncome";
+import React from "react";
 
 setupIonicReact();
 
@@ -40,7 +41,9 @@ const App: React.FC = () => {
 						<Home />
 					</Route>
 					<Route exact path="/expenditure_and_incomes">
-						<ExpenditureAndIncome />
+						<React.StrictMode>
+							<ExpenditureAndIncome />
+						</React.StrictMode>
 					</Route>
 					<Route exact path="/signup">
 						<Signup />

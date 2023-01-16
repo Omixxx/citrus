@@ -1,27 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonBackButton,
+  IonButton,
   IonButtons,
   IonChip,
   IonContent,
   IonHeader,
   IonInfiniteScroll,
-  IonInfiniteScrollContent,
   IonItem,
   IonLabel,
   IonList,
   IonPage,
-  IonToolbar,
 } from "@ionic/react";
 import getIncomes from "../../services/income/getIncomes";
 import getExpenses from "../../services/expense/getExpenses";
 import { isoTOddmmyyyy } from "../../utils/isoToUeDateConvertion";
 import "./ExpenditureAndIncome.css";
+import { useHistory } from "react-router";
 
 const ExpenditureAndIncome: React.FC = () => {
+  const [effectCompleted, setEffectCompleted] = useState(false);
   const [expenses, setExpenses] = React.useState<Object[]>([]);
   const [incomes, setIncomes] = React.useState<Object[]>([]);
   const [view, setView] = React.useState<string>("");
+  const history = useHistory();
 
   useEffect(() => {
     const fetch = async () => {
@@ -29,35 +31,38 @@ const ExpenditureAndIncome: React.FC = () => {
       const incomes = await getIncomes();
       addTypeProperty("income", incomes, setIncomes);
       addTypeProperty("expense", expenses, setExpenses);
+      setEffectCompleted(true);
     };
     fetch();
   }, []);
 
-  return (
-    <IonPage>
-      <IonContent>
-        {/*-- Default back button --*/}
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonBackButton />
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
-        <IonList inset={true}>{generateList()}</IonList>;
-        <IonInfiniteScroll>
-          <IonInfiniteScrollContent
-            loadingText="Please wait..."
-            loadingSpinner="bubbles"
-          ></IonInfiniteScrollContent>
-        </IonInfiniteScroll>
-      </IonContent>
-    </IonPage>
-  );
-
+  if (effectCompleted) {
+    return (
+      <IonPage>
+        <IonContent>
+          {/*-- Default back button --*/}
+          <IonHeader>
+            <IonButton
+              onClick={() => {
+                history.push("/home");
+              }}
+            >
+              back
+            </IonButton>
+          </IonHeader>
+          <IonList inset={true}>{generateList()}</IonList>;
+          <IonInfiniteScroll></IonInfiniteScroll>
+        </IonContent>
+      </IonPage>
+    );
+  } else {
+    return <div>...Loading</div>;
+  }
   function generateList() {
+    alert(" inizio generateList");
     if (expenses.length !== 0 || incomes.length !== 0) {
-      const mergedList = mergeExpenseAndIncome(expenses, incomes);
+      const mergedList = mergeAndSort(expenses, incomes);
+      alert(" inizio map");
       return mergedList.map((item: any) => {
         return (
           <IonItem key={item.id}>
@@ -79,7 +84,7 @@ const ExpenditureAndIncome: React.FC = () => {
     return <IonItem>No data</IonItem>;
   }
 
-  function mergeExpenseAndIncome(listOfExpense: any, listOfIncome: any) {
+  function mergeAndSort(listOfExpense: any, listOfIncome: any) {
     let mergedList = listOfExpense.concat(listOfIncome);
 
     return mergedList.sort((a: any, b: any) => {
@@ -88,13 +93,14 @@ const ExpenditureAndIncome: React.FC = () => {
   }
 
   function addTypeProperty(type: string, list: any, setList: any) {
-    const mylist = list;
-    mylist.forEach((item: any) => {
-      return {
+    let mylist: Object[] = [];
+    list.forEach((item: any) => {
+      mylist.push({
         ...item,
         type: type,
-      };
+      });
     });
+
     setList(mylist);
   }
 };
