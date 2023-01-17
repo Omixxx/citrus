@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   IonButtons,
   IonButton,
@@ -16,6 +16,7 @@ import DateDialog from "./DateDialog";
 import MoneyInput from "./MoneyInput";
 import { getIncomeCategories } from "../../../services/categories/getIncomeCategories";
 import { addIncome } from "../../../services/account/addIncome";
+import { BalanceContext } from "../../../context/Context";
 
 const Modal = ({
   onDismiss,
@@ -94,12 +95,12 @@ const Modal = ({
   );
 };
 
-function AddIncome(props: any) {
+function AddIncome() {
   const [present, dismiss] = useIonModal(Modal, {
     onDismiss: (data: string, role: string) => dismiss(data, role),
   });
-  const onIncomeAdd = props.onIncomeAdd;
 
+  const { setBalance } = useContext(BalanceContext);
   function openModal() {
     present({
       onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
@@ -108,8 +109,7 @@ function AddIncome(props: any) {
           if (income && chosenCategoryId && date) {
             const result = await addIncome(income, chosenCategoryId, date);
             if (result) {
-              alert(`income added successfully`);
-              return await onIncomeAdd(result.balance);
+              return setBalance(result.balance);
             }
             return alert(`error while adding income`);
           }

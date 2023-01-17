@@ -1,21 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   IonButton,
-  IonChip,
   IonContent,
   IonHeader,
   IonInfiniteScroll,
-  IonItem,
-  IonLabel,
-  IonList,
   IonPage,
 } from "@ionic/react";
 import getIncomes from "../../services/income/getIncomes";
 import getExpenses from "../../services/expense/getExpenses";
-import { isoTOddmmyyyy } from "../../utils/isoToUeDateConvertion";
 import "./ExpenditureAndIncome.css";
 import { useHistory } from "react-router";
 import { BalanceContext } from "../../context/Context";
+import List from "./components/List";
 
 const ExpenditureAndIncome: React.FC = () => {
   const { balance } = useContext(BalanceContext);
@@ -29,8 +25,8 @@ const ExpenditureAndIncome: React.FC = () => {
     const fetch = async () => {
       const expenses = await getExpenses();
       const incomes = await getIncomes();
-      addTypeProperty("income", incomes, setIncomes);
       addTypeProperty("expense", expenses, setExpenses);
+      addTypeProperty("income", incomes, setIncomes);
       setEffectCompleted(true);
     };
     fetch();
@@ -50,45 +46,13 @@ const ExpenditureAndIncome: React.FC = () => {
               back
             </IonButton>
           </IonHeader>
-          <IonList inset={true}>{generateList()}</IonList>;
+          <List expenses={expenses} incomes={incomes} />
           <IonInfiniteScroll></IonInfiniteScroll>
         </IonContent>
       </IonPage>
     );
   } else {
     return <div>...Loading</div>;
-  }
-
-  function generateList() {
-    if (expenses.length === 0 || incomes.length === 0)
-      return <IonItem>No data</IonItem>;
-
-    const mergedList = mergeAndSort(expenses, incomes);
-    return mergedList.map((item: any) => {
-      return (
-        <IonItem key={item.id}>
-          <IonLabel>
-            {item.type === "expense" ? (
-              <big style={{ color: "red" }}>{` - ${item.amount}`}</big>
-            ) : (
-              <big style={{ color: "green" }}>{` + ${item.amount}`}</big>
-            )}
-            <p>{isoTOddmmyyyy(item.date)}</p>
-          </IonLabel>
-          <IonLabel>
-            <IonChip color="primary">Category</IonChip>
-          </IonLabel>
-        </IonItem>
-      );
-    });
-  }
-
-  function mergeAndSort(listOfExpense: any, listOfIncome: any) {
-    let mergedList = listOfExpense.concat(listOfIncome);
-
-    return mergedList.sort((a: any, b: any) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
-    });
   }
 
   function addTypeProperty(type: string, list: any, setList: any) {

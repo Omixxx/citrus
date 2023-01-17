@@ -61,16 +61,8 @@ const Home: React.FC = () => {
           >
             Transactions
           </IonButton>
-          <AddIncome
-            onIncomeAdd={(newBalance: number) => {
-              setBalance(newBalance);
-            }}
-          />
-          <AddExpense
-            onExpenseAdd={(newBalance: number) => {
-              setBalance(newBalance);
-            }}
-          />
+          <AddIncome />
+          <AddExpense />
         </IonButtons>
       </IonContent>
     </IonPage>

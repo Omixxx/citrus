@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   IonButtons,
   IonButton,
@@ -9,6 +9,7 @@ import {
   IonPage,
   IonItem,
   useIonModal,
+  useIonToast,
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import Categories from "./Categories";
@@ -16,6 +17,7 @@ import DateDialog from "./DateDialog";
 import MoneyInput from "./MoneyInput";
 import addExpense from "../../../services/account/addExpense";
 import { getExpenseCategories } from "../../../services/categories/getExpenseCategories";
+import { BalanceContext } from "../../../context/Context";
 
 const Modal = ({
   onDismiss,
@@ -94,12 +96,12 @@ const Modal = ({
   );
 };
 
-function AddExpense(props: any) {
+function AddExpense() {
   const [present, dismiss] = useIonModal(Modal, {
     onDismiss: (data: string, role: string) => dismiss(data, role),
   });
-  const onExpenseAdd = props.onExpenseAdd;
 
+  const { setBalance } = useContext(BalanceContext);
   function openModal() {
     present({
       onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
@@ -108,8 +110,8 @@ function AddExpense(props: any) {
           if (expense && chosenCategoryId && date) {
             const result = await addExpense(expense, chosenCategoryId, date);
             if (result) {
-              alert(`expense added successfully`);
-              return await onExpenseAdd(result.balance);
+              alert("Expense added successfully");
+              return setBalance(result.balance);
             }
             return alert(`error while adding expense`);
           }
