@@ -48,7 +48,7 @@ const Home: React.FC = () => {
                   className="ion-text-center"
                 >
                   {formatValue({
-                    value: balance.toString(),
+                    value: balance?.toString(),
                     groupSeparator: ",",
                     decimalSeparator: ".",
                     prefix: "€",

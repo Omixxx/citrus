@@ -14,11 +14,12 @@ function DateDialog(props: any) {
   const today = new Date(Date.now());
 
   return (
-    <IonContent class="ion-padding">
+    <IonContent>
       <IonButton
-        id="open-custom-dialog"
-        color={"dark"}
+        style={{ textAlign: "center" }}
         expand="block"
+        id="open-custom-dialog"
+        color={"primary"}
         class="ion-text-start"
       >
         {date.toDateString()}

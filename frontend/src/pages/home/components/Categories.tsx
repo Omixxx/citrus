@@ -5,7 +5,14 @@ function Categories(props: any) {
   const categories = props.categories;
   const handleCategoryChange = props.onCategoryChange;
   return (
-    <IonItem lines="none" fill="outline" style={{ paddingLeft: "80" }}>
+    <IonItem
+      className="pad"
+      lines="none"
+      fill="outline"
+      style={{
+        width: "100%",
+      }}
+    >
       <IonSelect
         placeholder="category"
         onIonChange={(e) => {
