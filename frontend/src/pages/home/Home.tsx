@@ -11,16 +11,17 @@ import {
   IonPage,
   IonRow,
 } from "@ionic/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getBalance } from "../../services/account/getBalance";
 import { Line } from "./components/Line";
 import "./Home.css";
 import AddIncome from "./components/AddIncome";
 import AddExpense from "./components/AddExpense";
 import { useHistory } from "react-router";
+import { BalanceContext } from "../../context/Context";
 
 const Home: React.FC = () => {
-  const [balance, setBalance] = useState(0);
+  const { balance, setBalance } = useContext(BalanceContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const Home: React.FC = () => {
           <IonButton
             color="secondary"
             onClick={() => {
-              history.replace("/expenditure_and_incomes");
+              history.push("/expenditure_and_incomes");
             }}
           >
             Transactions

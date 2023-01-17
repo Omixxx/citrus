@@ -26,10 +26,12 @@ import Signup from "./pages/signup/Signup";
 import Boot from "./components/Boot";
 import ExpenditureAndIncome from "./pages/expenditure_and_incomes/ExprenditureAndIncome";
 import React from "react";
+import { BalanceContext } from "./context/Context";
 
 setupIonicReact();
 
 const App: React.FC = () => {
+	const [balance, setBalance] = React.useState(0);
 	return (
 		<IonApp>
 			<IonReactRouter>
@@ -38,12 +40,14 @@ const App: React.FC = () => {
 						<Login />
 					</Route>
 					<Route exact path="/home">
-						<Home />
+						<BalanceContext.Provider value={{ balance, setBalance }}>
+							<Home />
+						</BalanceContext.Provider>
 					</Route>
 					<Route exact path="/expenditure_and_incomes">
-						<React.StrictMode>
+						<BalanceContext.Provider value={{ balance, setBalance }}>
 							<ExpenditureAndIncome />
-						</React.StrictMode>
+						</BalanceContext.Provider>
 					</Route>
 					<Route exact path="/signup">
 						<Signup />
