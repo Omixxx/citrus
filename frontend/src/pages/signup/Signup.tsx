@@ -47,14 +47,7 @@ function Signup() {
   return (
     <IonPage>
       <IonContent className="ion-padding">
-        <IonToolbar
-          className="round"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignText: "center",
-          }}
-        >
+        <IonToolbar className="round">
           <IonTitle className="ion-text-center">Signup</IonTitle>
         </IonToolbar>
         <div>
