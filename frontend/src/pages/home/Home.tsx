@@ -17,6 +17,7 @@ import AddIncome from "./components/AddIncome";
 import AddExpense from "./components/AddExpense";
 import { useHistory } from "react-router";
 import { BalanceContext } from "../../context/Context";
+import { formatValue } from "react-currency-input-field";
 
 const Home: React.FC = () => {
   const { balance, setBalance } = useContext(BalanceContext);
@@ -46,7 +47,12 @@ const Home: React.FC = () => {
                   }}
                   className="ion-text-center"
                 >
-                  {`€ ${balance}`}
+                  {formatValue({
+                    value: balance.toString(),
+                    groupSeparator: ",",
+                    decimalSeparator: ".",
+                    prefix: "€",
+                  })}
                 </IonCardContent>
               </IonCard>
               <Line />

@@ -1,4 +1,4 @@
-import { IonList, IonItem, IonSelect, IonSelectOption } from "@ionic/react";
+import { IonItem, IonSelect, IonSelectOption } from "@ionic/react";
 import "./Categories.css";
 
 function Categories(props: any) {
