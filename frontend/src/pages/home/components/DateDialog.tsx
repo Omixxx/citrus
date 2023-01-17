@@ -19,8 +19,8 @@ function DateDialog(props: any) {
         style={{ textAlign: "center" }}
         expand="block"
         id="open-custom-dialog"
-        color={"primary"}
-        class="ion-text-start"
+        color={"tertiary"}
+        class="ion-justify-content-center"
       >
         {date.toDateString()}
       </IonButton>

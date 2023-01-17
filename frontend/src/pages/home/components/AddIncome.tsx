@@ -9,6 +9,9 @@ import {
   IonPage,
   IonItem,
   useIonModal,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import Categories from "./Categories";
@@ -67,29 +70,39 @@ const Modal = ({
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
-        <IonItem>
-          <Categories
-            onCategoryChange={(chosenCategory: any) => {
-              setChosenCategoryId(chosenCategory);
-            }}
-            categories={categories}
-          />
-        </IonItem>
-        <IonItem style={{ paddingLeft: "4%" }}>
-          <MoneyInput
-            onMoneyChange={(money: number) => {
-              setIncome(money);
-            }}
-          />
-        </IonItem>
-        <DateDialog
-          date={date}
-          setDate={(newDate: Date) => {
-            setDate(newDate);
-          }}
-          dayWindow={30}
-        ></DateDialog>
+      <IonContent>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonItem>
+                <Categories
+                  onCategoryChange={(chosenCategory: any) => {
+                    setChosenCategoryId(chosenCategory);
+                  }}
+                  categories={categories}
+                />
+              </IonItem>
+            </IonCol>
+            <IonCol className="ion-justify-content-center">
+              <IonItem style={{ paddingLeft: "4%" }}>
+                <MoneyInput
+                  onMoneyChange={(money: number) => {
+                    setIncome(money);
+                  }}
+                />
+              </IonItem>
+            </IonCol>
+            <IonCol>
+              <DateDialog
+                date={date}
+                setDate={(newDate: Date) => {
+                  setDate(newDate);
+                }}
+                dayWindow={30}
+              ></DateDialog>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );

@@ -33,3 +33,8 @@ ion-modal#example-modal .wrapper {
 .customBorder {
   border-radius: 10%;
 }
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
