@@ -12,7 +12,7 @@ export const useAuth = () => {
     const checkAuth = async () => {
       try {
         await axios.get(
-          `http://localhost:${process.env.REACT_APP_BACKEND_PORT}/user/isAuth`
+          `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/user/isAuth`
         );
         setIsAuth(true);
       } finally {
