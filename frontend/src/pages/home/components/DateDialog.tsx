@@ -3,7 +3,6 @@ import {
   IonButton,
   IonModal,
   IonContent,
-  IonPage,
   IonItem,
   IonDatetime,
 } from "@ionic/react";
@@ -26,7 +25,7 @@ function DateDialog(props: any) {
       </IonButton>
       <IonModal id="example-modal" ref={modal} trigger="open-custom-dialog">
         <div className="wrapper">
-          <h1>Date</h1>
+          <h1 className="ion-text-center">Date</h1>
           <IonItem lines="none">
             <IonDatetime
               presentation="date-time"

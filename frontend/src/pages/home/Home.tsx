@@ -3,8 +3,6 @@ import {
   IonButtons,
   IonCard,
   IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
   IonCol,
   IonContent,
   IonGrid,
@@ -35,33 +33,39 @@ const Home: React.FC = () => {
     <IonPage>
       <IonContent className="ion-padding">
         <IonGrid style={{ height: "80%" }}>
-          <IonRow style={{ height: "65%" }}>
+          <IonRow style={{ height: "60%" }}>
             <IonCol>
               <IonCard class="round">
-                <IonCardHeader>
-                  <IonCardTitle className="ion-text-center">
-                    {`€ ${balance}`}
-                  </IonCardTitle>
-                </IonCardHeader>
                 <IonCardContent
-                  style={{ fontSize: 30 }}
+                  style={{
+                    color: "#D8D8D8",
+                    textAlign: "center",
+                    fontSize: "1.7rem",
+                    font: "Courier New",
+                    fontWeight: "bold",
+                  }}
                   className="ion-text-center"
-                ></IonCardContent>
+                >
+                  {`€ ${balance}`}
+                </IonCardContent>
               </IonCard>
               <Line />
             </IonCol>
           </IonRow>
         </IonGrid>
         <IonButtons>
+          <AddIncome />
           <IonButton
-            color="secondary"
+            style={{
+              width: "100%",
+              color: "#5454C5",
+            }}
             onClick={() => {
               history.push("/expenditure_and_incomes");
             }}
           >
             Transactions
           </IonButton>
-          <AddIncome />
           <AddExpense />
         </IonButtons>
       </IonContent>

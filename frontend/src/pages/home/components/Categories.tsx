@@ -1,21 +1,20 @@
 import { IonList, IonItem, IonSelect, IonSelectOption } from "@ionic/react";
+import "./Categories.css";
+
 function Categories(props: any) {
   const categories = props.categories;
   const handleCategoryChange = props.onCategoryChange;
   return (
-    <IonList>
-      <IonItem>
-        <IonSelect
-          interface="popover"
-          placeholder="Select a Category"
-          onIonChange={(e) => {
-            handleCategoryChange(e.detail.value);
-          }}
-        >
-          {getCategories()}
-        </IonSelect>
-      </IonItem>
-    </IonList>
+    <IonItem lines="none" fill="outline" style={{ paddingLeft: "80" }}>
+      <IonSelect
+        placeholder="category"
+        onIonChange={(e) => {
+          handleCategoryChange(e.detail.value);
+        }}
+      >
+        {getCategories()}
+      </IonSelect>
+    </IonItem>
   );
 
   function getCategories() {

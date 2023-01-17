@@ -9,7 +9,6 @@ import {
   IonPage,
   IonItem,
   useIonModal,
-  useIonToast,
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import Categories from "./Categories";
@@ -56,7 +55,7 @@ const Modal = ({
               Cancel
             </IonButton>
           </IonButtons>
-          <IonTitle>Add Your Expense</IonTitle>
+          <IonTitle class="ion-text-center">Add Your Expense</IonTitle>
           <IonButtons slot="end">
             <IonButton
               onClick={() =>
@@ -128,7 +127,7 @@ function AddExpense() {
         expand="block"
         class="round"
         style={{
-          backgroundColor: "#3338b6",
+          backgroundColor: "#A12568",
         }}
         onClick={() => openModal()}
       >

@@ -55,7 +55,7 @@ const Modal = ({
               Cancel
             </IonButton>
           </IonButtons>
-          <IonTitle>Add Your Income</IonTitle>
+          <IonTitle class="ion-text-center">Add Your Income</IonTitle>
           <IonButtons slot="end">
             <IonButton
               onClick={() =>
@@ -126,7 +126,7 @@ function AddIncome() {
         expand="block"
         class="round"
         style={{
-          backgroundColor: "#18b8b6",
+          backgroundColor: "#4ECCA3",
         }}
         onClick={() => openModal()}
       >
