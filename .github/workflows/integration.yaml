@@ -1,0 +1,16 @@
+name: Citrus Continuous Integration
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build_pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 19.2.0
+      - run: cd fronted && npm ci
+      - run: cd fronted && ionic build android
