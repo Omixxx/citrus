@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { login } from "../../services/user/login";
 import { CustomIonicInput } from "./components/CustomIonicInput";
 import { CustomIonicButton } from "./components/CustomIonicButton";
-port "./Login.css";
+import "./Login.css";
 
 // react functional components do not have state, so we need to use hooks to manage state
 // this is a similar concept to using a class component
