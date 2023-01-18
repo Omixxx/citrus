@@ -1,14 +1,31 @@
-export function storeJwt(token: string): boolean {
+import { Storage } from "@ionic/storage";
+
+const store = new Storage();
+let storage: Storage | null = null;
+
+export async function storeJwt(token: string): Promise<Boolean> {
+	if (!storage) await initStorage();
 	if (token === null || token === undefined) return false;
 
-	localStorage.setItem("jwt", token);
+	await storage?.set("jwt", token);
 	return true;
 }
 
-export function getJwt(): string {
-	const token = localStorage.getItem("jwt");
-	console.log(token);
+export async function getJwt() {
+	if (!storage) await initStorage();
+	const token = await storage?.get("jwt");
 
 	if (token === null || token === undefined) return "";
+
 	return token;
+}
+
+export async function removeJwt() {
+	await storage?.remove("jwt");
+}
+
+async function initStorage() {
+	if (!storage) {
+		storage = await store.create();
+	}
 }

@@ -48,8 +48,20 @@ function Signup() {
     <IonPage>
       <IonContent className="ion-padding">
         <IonToolbar className="round">
-          <IonTitle class="ion-text-center">Signup</IonTitle>
+          <IonTitle className="ion-text-center">Signup</IonTitle>
         </IonToolbar>
+        <div>
+          <IonButton
+            slot="start"
+            size="small"
+            fill="clear"
+            onClick={() => {
+              history.push("/login");
+            }}
+          >
+            back
+          </IonButton>
+        </div>
         <div className="ion-text-center" style={{ paddingTop: "3%" }}>
           <FiUserPlus size="3%" />
         </div>

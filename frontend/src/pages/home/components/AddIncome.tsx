@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   IonButtons,
   IonButton,
@@ -9,6 +9,9 @@ import {
   IonPage,
   IonItem,
   useIonModal,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 import { OverlayEventDetail } from "@ionic/core/components";
 import Categories from "./Categories";
@@ -16,6 +19,7 @@ import DateDialog from "./DateDialog";
 import MoneyInput from "./MoneyInput";
 import { getIncomeCategories } from "../../../services/categories/getIncomeCategories";
 import { addIncome } from "../../../services/account/addIncome";
+import { BalanceContext } from "../../../context/Context";
 
 const Modal = ({
   onDismiss,
@@ -54,7 +58,7 @@ const Modal = ({
               Cancel
             </IonButton>
           </IonButtons>
-          <IonTitle>Add Your Income</IonTitle>
+          <IonTitle class="ion-text-center">Add Your Income</IonTitle>
           <IonButtons slot="end">
             <IonButton
               onClick={() =>
@@ -66,40 +70,50 @@ const Modal = ({
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
-        <IonItem>
-          <Categories
-            onCategoryChange={(chosenCategory: any) => {
-              setChosenCategoryId(chosenCategory);
-            }}
-            categories={categories}
-          />
-        </IonItem>
-        <IonItem style={{ paddingLeft: "4%" }}>
-          <MoneyInput
-            onMoneyChange={(money: number) => {
-              setIncome(money);
-            }}
-          />
-        </IonItem>
-        <DateDialog
-          date={date}
-          setDate={(newDate: Date) => {
-            setDate(newDate);
-          }}
-          dayWindow={30}
-        ></DateDialog>
+      <IonContent>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonItem>
+                <Categories
+                  onCategoryChange={(chosenCategory: any) => {
+                    setChosenCategoryId(chosenCategory);
+                  }}
+                  categories={categories}
+                />
+              </IonItem>
+            </IonCol>
+            <IonCol className="ion-justify-content-center">
+              <IonItem style={{ paddingLeft: "4%" }}>
+                <MoneyInput
+                  onMoneyChange={(money: number) => {
+                    setIncome(money);
+                  }}
+                />
+              </IonItem>
+            </IonCol>
+            <IonCol>
+              <DateDialog
+                date={date}
+                setDate={(newDate: Date) => {
+                  setDate(newDate);
+                }}
+                dayWindow={30}
+              ></DateDialog>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
 };
 
-function AddIncome(props: any) {
+function AddIncome() {
   const [present, dismiss] = useIonModal(Modal, {
     onDismiss: (data: string, role: string) => dismiss(data, role),
   });
-  const onIncomeAdd = props.onIncomeAdd;
 
+  const { setBalance } = useContext(BalanceContext);
   function openModal() {
     present({
       onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
@@ -108,8 +122,8 @@ function AddIncome(props: any) {
           if (income && chosenCategoryId && date) {
             const result = await addIncome(income, chosenCategoryId, date);
             if (result) {
-              alert(`income added successfully`);
-              return await onIncomeAdd(result.balance);
+              alert(result.balance);
+              return setBalance(result.balance);
             }
             return alert(`error while adding income`);
           }
@@ -126,7 +140,7 @@ function AddIncome(props: any) {
         expand="block"
         class="round"
         style={{
-          backgroundColor: "#18b8b6",
+          backgroundColor: "#4ECCA3",
         }}
         onClick={() => openModal()}
       >

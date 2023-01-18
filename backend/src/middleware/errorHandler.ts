@@ -8,7 +8,7 @@ export function errorHandler(
   next: any
 ) {
   console.log(
-    `${error.message} \n ${chalk.blue(`--> `)}${chalk.yellow(
+    `${error.message} \n${chalk.blue(`--> `)}${chalk.yellow(
       `return status:`,
       error.status
     )}`

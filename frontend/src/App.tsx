@@ -1,4 +1,4 @@
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages//home/Home";
@@ -24,10 +24,14 @@ import "./theme/variables.css";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import Boot from "./components/Boot";
+import React from "react";
+import { BalanceContext } from "./context/Context";
+import Transactions from "./pages/transactions/Transactions";
 
 setupIonicReact();
 
 const App: React.FC = () => {
+	const [balance, setBalance] = React.useState(0);
 	return (
 		<IonApp>
 			<IonReactRouter>
@@ -36,7 +40,14 @@ const App: React.FC = () => {
 						<Login />
 					</Route>
 					<Route exact path="/home">
-						<Home />
+						<BalanceContext.Provider value={{ balance, setBalance }}>
+							<Home />
+						</BalanceContext.Provider>
+					</Route>
+					<Route exact path="/expenditure_and_incomes">
+						<BalanceContext.Provider value={{ balance, setBalance }}>
+							<Transactions />
+						</BalanceContext.Provider>
 					</Route>
 					<Route exact path="/signup">
 						<Signup />

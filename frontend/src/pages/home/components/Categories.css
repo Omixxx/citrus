@@ -24,3 +24,17 @@ ion-modal#example-modal ion-icon {
 ion-modal#example-modal .wrapper {
   margin-bottom: 10px;
 }
+
+.pad {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.customBorder {
+  border-radius: 10%;
+}
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

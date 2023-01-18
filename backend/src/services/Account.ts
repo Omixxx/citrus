@@ -27,10 +27,7 @@ export async function createAccount(userId: number) {
       },
     });
   } catch (error: any) {
-    throw new CustomError(
-      `error creating account ${error.message}`,
-      error.stack
-    );
+    throw new CustomError(`Error during account creation`, error);
   }
 }
 

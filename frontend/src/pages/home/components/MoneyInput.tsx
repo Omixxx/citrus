@@ -5,13 +5,14 @@ export default function MoneyInput(props: any) {
   const handleInputChanges = props.onMoneyChange;
   return (
     <IonInput
-      inputmode="numeric"
       type="number"
+      style={{ textAlign: "center" }}
+      placeholder="€ 0.00"
+      inputmode="numeric"
       onIonChange={(e: any) => {
         e.target.value = Money.inputSanitizer(e.target.value);
         handleInputChanges(parseInt(e.target.value));
       }}
-      placeholder="$ 0"
       min={0}
     ></IonInput>
   );

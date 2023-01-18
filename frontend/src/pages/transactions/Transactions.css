@@ -1,0 +1,15 @@
+.center {
+  text-align: center;
+}
+
+.income {
+  color: green;
+}
+
+.expense {
+  color: #ff0000;
+}
+
+.ion-label.income {
+  color: green;
+}

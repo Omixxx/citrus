@@ -19,9 +19,11 @@ export async function registerUser(req: any, res: any) {
     SHA256.hex(req.body.password)
   );
 
-  user !== null && user !== undefined && (await createAccount(user.id))
-    ? res.status(status.CREATED).send()
-    : res.status(status.BAD_REQUEST).send();
+  if (user === null && user === undefined)
+    throw new CustomError("User already exists", status.CONFLICT);
+
+  await createAccount(user.id);
+  res.status(status.CREATED).send();
 }
 
 export function isAuthenticated(req: any, res: any) {
@@ -29,6 +31,7 @@ export function isAuthenticated(req: any, res: any) {
 
   if (!token || !jwt.verify(token))
     throw new CustomError("User is not authenticated", status.UNAUTHORIZED);
+
   return res.status(status.OK).send();
 }
 
