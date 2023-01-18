@@ -28,7 +28,7 @@ jobs:
 
     - name: Build for production
       working-directory: frontend
-      run: ionic build --prod --verbose
+      run: ionic build --verbose
 
     - name: Lint
       working-directory: frontend
