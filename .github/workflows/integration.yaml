@@ -12,5 +12,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 19.2.0
+          working-directory: frontend
       - run: cd fronted && npm ci
       - run: cd fronted && ionic build android
