@@ -20,6 +20,10 @@ export async function getJwt() {
 	return token;
 }
 
+export async function removeJwt() {
+	await storage?.remove("jwt");
+}
+
 async function initStorage() {
 	if (!storage) {
 		storage = await store.create();

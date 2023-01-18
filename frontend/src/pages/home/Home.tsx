@@ -9,7 +9,7 @@ import {
   IonPage,
   IonRow,
 } from "@ionic/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { getBalance } from "../../services/account/getBalance";
 import { Line } from "./components/Line";
 import "./Home.css";
@@ -18,6 +18,7 @@ import AddExpense from "./components/AddExpense";
 import { useHistory } from "react-router";
 import { BalanceContext } from "../../context/Context";
 import { formatValue } from "react-currency-input-field";
+import { LogOut } from "../../components/LogOut";
 
 const Home: React.FC = () => {
   const { balance, setBalance } = useContext(BalanceContext);
@@ -28,10 +29,18 @@ const Home: React.FC = () => {
       setBalance(await getBalance());
     }
     init();
-  }, [balance]);
+  }, []);
 
   return (
     <IonPage>
+      <LogOut
+        style={{
+          fontSize: "small",
+          width: "100px",
+          height: "20px",
+          paddingTop: "10px",
+        }}
+      />
       <IonContent className="ion-padding">
         <IonGrid style={{ height: "80%" }}>
           <IonRow style={{ height: "60%" }}>
@@ -55,6 +64,7 @@ const Home: React.FC = () => {
                   })}
                 </IonCardContent>
               </IonCard>
+
               <Line />
             </IonCol>
           </IonRow>

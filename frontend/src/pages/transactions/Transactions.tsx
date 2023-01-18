@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   IonButton,
   IonContent,
@@ -8,17 +8,15 @@ import {
 } from "@ionic/react";
 import getIncomes from "../../services/income/getIncomes";
 import getExpenses from "../../services/expense/getExpenses";
-import "./ExpenditureAndIncome.css";
+import "./Transactions.css";
 import { useHistory } from "react-router";
 import { BalanceContext } from "../../context/Context";
 import List from "./components/List";
 
-const ExpenditureAndIncome: React.FC = () => {
+const Transactions: React.FC = () => {
   const { balance } = useContext(BalanceContext);
-  const [effectCompleted, setEffectCompleted] = useState(false);
   const [expenses, setExpenses] = React.useState<Object[]>([]);
   const [incomes, setIncomes] = React.useState<Object[]>([]);
-  const [view, setView] = React.useState<string>("");
   const history = useHistory();
 
   useEffect(() => {
@@ -27,33 +25,27 @@ const ExpenditureAndIncome: React.FC = () => {
       const incomes = await getIncomes();
       addTypeProperty("expense", expenses, setExpenses);
       addTypeProperty("income", incomes, setIncomes);
-      setEffectCompleted(true);
     };
     fetch();
   }, [balance]);
 
-  if (effectCompleted) {
-    return (
-      <IonPage>
-        <IonContent>
-          {/*-- Default back button --*/}
-          <IonHeader>
-            <IonButton
-              onClick={() => {
-                history.push("/home");
-              }}
-            >
-              back
-            </IonButton>
-          </IonHeader>
-          <List expenses={expenses} incomes={incomes} />
-          <IonInfiniteScroll></IonInfiniteScroll>
-        </IonContent>
-      </IonPage>
-    );
-  } else {
-    return <div>...Loading</div>;
-  }
+  return (
+    <IonPage>
+      <IonContent>
+        <IonHeader>
+          <IonButton
+            onClick={() => {
+              history.push("/home");
+            }}
+          >
+            back
+          </IonButton>
+        </IonHeader>
+        <List expenses={expenses} incomes={incomes} />
+        <IonInfiniteScroll></IonInfiniteScroll>
+      </IonContent>
+    </IonPage>
+  );
 
   function addTypeProperty(type: string, list: any, setList: any) {
     let mylist: Object[] = [];
@@ -67,4 +59,4 @@ const ExpenditureAndIncome: React.FC = () => {
   }
 };
 
-export default ExpenditureAndIncome;
+export default Transactions;

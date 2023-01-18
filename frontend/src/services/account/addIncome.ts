@@ -5,19 +5,17 @@ export async function addIncome(
   categoryId: number,
   date: Date
 ) {
-  return await axios
-    .post(
+  try {
+    const result = await axios.post(
       `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/income/addIncome`,
       {
         amount,
         categoryId,
         date,
       }
-    )
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      alert(error);
-    });
+    );
+    return result.data;
+  } catch (error: any) {
+    alert(error.response.data.message);
+  }
 }

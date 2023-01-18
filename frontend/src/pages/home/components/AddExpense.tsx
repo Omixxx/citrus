@@ -109,10 +109,10 @@ function AddExpense() {
           if (expense && chosenCategoryId && date) {
             const result = await addExpense(expense, chosenCategoryId, date);
             if (result) {
-              alert("Expense added successfully");
+              alert(result.balance);
               return setBalance(result.balance);
             }
-            return alert(`error while adding expense`);
+            return alert(`Error while adding expense`);
           }
           alert("Please fill out all fields");
           ev.detail.role = "cancel";

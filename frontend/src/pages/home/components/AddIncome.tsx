@@ -122,6 +122,7 @@ function AddIncome() {
           if (income && chosenCategoryId && date) {
             const result = await addIncome(income, chosenCategoryId, date);
             if (result) {
+              alert(result.balance);
               return setBalance(result.balance);
             }
             return alert(`error while adding income`);
