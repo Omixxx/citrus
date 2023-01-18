@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+        
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -21,20 +22,14 @@ jobs:
     - name: Install Ionic CLI
       run: npm install -g ionic
 
-    - name: Change working directory 
-      run: cd frontend
-
     - name: Install dependencies
+      working-directory: frontend
       run: npm ci
 
     - name: Build for production
+      working-directory: frontend
       run: ionic build --prod
 
     - name: Lint
+      working-directory: frontend
       run: npx tslint --project tsconfig.json
-
-
-
-
-
-
