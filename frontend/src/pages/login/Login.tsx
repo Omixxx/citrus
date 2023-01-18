@@ -4,12 +4,12 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { login } from "../../services/user/login";
 import { CustomIonicInput } from "./components/CustomIonicInput";
-iport { CustomIonicButton } from "./components/CustomIonicButton";
-port "./Login.css";
+import { CustomIonicButton } from "./components/CustomIonicButton";
+import "./Login.css";
 
 // react functional components do not have state, so we need to use hooks to manage state
 // this is a similar concept to using a class component
-const Login: React.FC = () => {
+cofnst Login: React.FC = () => {
   //useState is a hook (a function that allows the component to use various features)
   //in this case allow the component to use state and remember the value of the username and password
   const [email, setEmail] = useState("");
