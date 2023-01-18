@@ -23,7 +23,7 @@ export async function addIncome(req: any, res: any) {
   } catch (error: any) {
     throw new CustomError(`Income insetion failed`, error, 400);
   }
-  return res.status(200).send({ transaction });
+  return res.status(200).send(transaction);
 }
 
 export async function getIncomes(req: any, res: any) {

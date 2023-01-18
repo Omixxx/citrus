@@ -17,13 +17,14 @@ export async function addExpense(req: any, res: any) {
     date: req.body.date,
     accountId: account.id,
   };
-  let transaction: any;
+  let transaction: {};
   try {
     transaction = await insertExpense(expense, account.id);
   } catch (error: any) {
     throw new CustomError(`expense insetion failed`, error, 400);
   }
-  return res.status(200).send({ transaction });
+
+  return res.status(200).send(transaction);
 }
 
 export async function getExpenses(req: any, res: any) {
