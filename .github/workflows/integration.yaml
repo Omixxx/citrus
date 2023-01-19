@@ -3,33 +3,32 @@ name: Citrus Continuous Integration
 on:
   pull_request:
     branches:
-    - master
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-        
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
 
-    - name: Install Ionic CLI
-      run: npm install -g ionic
+      - name: Install Ionic CLI
+        run: npm install -g @ionic/cli
 
-    - name: Install dependencies
-      working-directory: frontend
-      run: npm ci
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
 
-    - name: Build for production
-      working-directory: frontend
-      run: ionic build --prod
+      - name: Lint
+        working-directory: frontend
+        run: npx tslint --project tsconfig.json
 
-    - name: Lint
-      working-directory: frontend
-      run: npx tslint --project tsconfig.json
+      - name: Build for production
+        working-directory: frontend
+        run: ionic build --prod
