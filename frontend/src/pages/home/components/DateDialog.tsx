@@ -1,25 +1,25 @@
-import { useRef } from "react";
+import { useRef } from 'react'
 import {
   IonButton,
   IonModal,
   IonContent,
   IonItem,
-  IonDatetime,
-} from "@ionic/react";
-import "./DateDialog.css";
+  IonDatetime
+} from '@ionic/react'
+import './DateDialog.css'
 
-function DateDialog(props: any) {
-  const modal = useRef<HTMLIonModalElement>(null);
-  const { date, setDate, dayWindow } = props;
-  const today = new Date(Date.now());
+function DateDialog (props: any) {
+  const modal = useRef<HTMLIonModalElement>(null)
+  const { date, setDate, dayWindow } = props
+  const today = new Date(Date.now())
 
   return (
     <IonContent>
       <IonButton
-        style={{ textAlign: "center" }}
+        style={{ textAlign: 'center' }}
         expand="block"
         id="open-custom-dialog"
-        color={"tertiary"}
+        color={'tertiary'}
         class="ion-justify-content-center"
       >
         {date.toDateString()}
@@ -32,8 +32,7 @@ function DateDialog(props: any) {
               presentation="date-time"
               showDefaultButtons={true}
               onIonChange={(e) => {
-                if (e.detail.value)
-                  setDate(new Date(e.detail.value.toString()));
+                if (e.detail.value) { setDate(new Date(e.detail.value.toString())) }
               }}
               value={date.toISOString()}
               min={new Date(Date.now()).toISOString()}
@@ -45,7 +44,7 @@ function DateDialog(props: any) {
         </div>
       </IonModal>
     </IonContent>
-  );
+  )
 }
 
-export default DateDialog;
+export default DateDialog

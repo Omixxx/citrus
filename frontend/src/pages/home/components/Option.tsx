@@ -1,3 +1,3 @@
-export const Option = (props: {}) => {
-  return <div></div>;
-};
+export const Option = () => {
+  return <div></div>
+}

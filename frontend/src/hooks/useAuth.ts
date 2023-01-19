@@ -1,26 +1,37 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 export const useAuth = () => {
-  const [isAuth, setIsAuth] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isAuth, setIsAuth] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
-  //ogni volta che viene montato il componente,
-  //viene eseguito il codice all'interno di useEffect
-  //
+  /*
+   * Ogni volta che viene montato il componente,
+   * Viene eseguito il codice all'interno di useEffect
+   *
+   */
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await axios.get(
+    const checkAuth = () => {
+      axios
+        .get(
           `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}/user/isAuth`
-        );
-        setIsAuth(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    checkAuth();
-  }, []);
+        )
+        .then(() => {
+          setIsAuth(true)
+        })
+        .catch((err) => {
+          alert(`Error during authentication${err}`)
+          setIsAuth(false)
+        })
+        .finally(() => {
+          setIsLoading(false)
+        })
+    }
+    checkAuth()
+  }, [])
 
-  return { isAuth, isLoading };
-};
+  return {
+    isAuth,
+    isLoading
+  }
+}
