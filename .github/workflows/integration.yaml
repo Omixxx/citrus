@@ -1,5 +1,3 @@
-name: Citrus Continuous Integration
-
 on:
   pull_request:
     branches:
@@ -32,3 +30,4 @@ jobs:
       - name: Build for production
         working-directory: frontend
         run: ionic build --prod
+
