@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios'
 
-export async function addIncome(
+export async function addIncome (
   amount: number,
   categoryId: number,
   date: Date
@@ -11,11 +11,11 @@ export async function addIncome(
       {
         amount,
         categoryId,
-        date,
+        date
       }
-    );
-    return result.data;
+    )
+    return result.data
   } catch (error: any) {
-    alert(error.response.data.message);
+    alert(error.response.data.message)
   }
 }

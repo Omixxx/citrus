@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react'
 import {
   IonButtons,
   IonButton,
@@ -11,58 +11,57 @@ import {
   useIonModal,
   IonGrid,
   IonRow,
-  IonCol,
-} from "@ionic/react";
-import { OverlayEventDetail } from "@ionic/core/components";
-import Categories from "./Categories";
-import DateDialog from "./DateDialog";
-import MoneyInput from "./MoneyInput";
-import { getIncomeCategories } from "../../../services/categories/getIncomeCategories";
-import { addIncome } from "../../../services/account/addIncome";
-import { BalanceContext } from "../../../context/Context";
+  IonCol
+} from '@ionic/react'
+import { OverlayEventDetail } from '@ionic/core/components'
+import Categories from './Categories'
+import DateDialog from './DateDialog'
+import MoneyInput from './MoneyInput'
+import { getIncomeCategories } from '../../../services/categories/getIncomeCategories'
+import { addIncome } from '../../../services/account/addIncome'
+import { BalanceContext } from '../../../context/Context'
 
 const Modal = ({
-  onDismiss,
+  onDismiss
 }: {
   onDismiss: (
-    data?: string | null | undefined | number | {},
+    data?: string | null | undefined | number | Record<string, unknown>,
     role?: string
-  ) => void;
+  ) => void
 }) => {
-  const [income, setIncome] = useState<number | undefined>(undefined);
+  const [income, setIncome] = useState<number | undefined>(undefined)
   const [chosenCategoryId, setChosenCategoryId] = useState<number | undefined>(
     undefined
-  );
-  const [date, setDate] = useState<Date>(new Date(Date.now()));
-  const [categories, setCategories] = useState<[{}]>([{}]);
+  )
+  const [date, setDate] = useState<Date>(new Date(Date.now()))
+  const [categories, setCategories] = useState<[Record<string, unknown>]>([{}])
 
   useEffect(() => {
     const getIncCategories = async () => {
       try {
-        const cagegories = await getIncomeCategories();
-        setCategories(cagegories);
+        const cagegories = await getIncomeCategories()
+        setCategories(cagegories)
       } catch (err) {
-        alert(`error while fetching categories from the server: ${err}`);
-        onDismiss(null, "cancel");
+        alert(`error while fetching categories from the server: ${err}`)
+        onDismiss(null, 'cancel')
       }
-    };
-    getIncCategories();
-  }, []);
+    }
+    getIncCategories()
+  }, [])
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonButton onClick={() => onDismiss(null, "cancel")}>
+            <IonButton onClick={() => { onDismiss(null, 'cancel') }}>
               Cancel
             </IonButton>
           </IonButtons>
           <IonTitle class="ion-text-center">Add Your Income</IonTitle>
           <IonButtons slot="end">
             <IonButton
-              onClick={() =>
-                onDismiss({ income, chosenCategoryId, date }, "confirm")
+              onClick={() => { onDismiss({ income, chosenCategoryId, date }, 'confirm') }
               }
             >
               Confirm
@@ -77,17 +76,17 @@ const Modal = ({
               <IonItem>
                 <Categories
                   onCategoryChange={(chosenCategory: any) => {
-                    setChosenCategoryId(chosenCategory);
+                    setChosenCategoryId(chosenCategory)
                   }}
                   categories={categories}
                 />
               </IonItem>
             </IonCol>
             <IonCol className="ion-justify-content-center">
-              <IonItem style={{ paddingLeft: "4%" }}>
+              <IonItem style={{ paddingLeft: '4%' }}>
                 <MoneyInput
                   onMoneyChange={(money: number) => {
-                    setIncome(money);
+                    setIncome(money)
                   }}
                 />
               </IonItem>
@@ -96,7 +95,7 @@ const Modal = ({
               <DateDialog
                 date={date}
                 setDate={(newDate: Date) => {
-                  setDate(newDate);
+                  setDate(newDate)
                 }}
                 dayWindow={30}
               ></DateDialog>
@@ -105,33 +104,33 @@ const Modal = ({
         </IonGrid>
       </IonContent>
     </IonPage>
-  );
-};
+  )
+}
 
-function AddIncome() {
+function AddIncome () {
   const [present, dismiss] = useIonModal(Modal, {
-    onDismiss: (data: string, role: string) => dismiss(data, role),
-  });
+    onDismiss: (data: string, role: string) => { dismiss(data, role) }
+  })
 
-  const { setBalance } = useContext(BalanceContext);
-  function openModal() {
+  const { setBalance } = useContext(BalanceContext)
+  function openModal () {
     present({
       onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
-        if (ev.detail.role === "confirm") {
-          const { income, chosenCategoryId, date } = ev.detail.data;
+        if (ev.detail.role === 'confirm') {
+          const { income, chosenCategoryId, date } = ev.detail.data
           if (income && chosenCategoryId && date) {
-            const result = await addIncome(income, chosenCategoryId, date);
+            const result = await addIncome(income, chosenCategoryId, date)
             if (result) {
-              alert(result.balance);
-              return setBalance(result.balance);
+              alert(result.balance)
+              setBalance(result.balance); return
             }
-            return alert(`error while adding income`);
+            alert('error while adding income'); return
           }
-          alert("Please fill out all fields");
-          ev.detail.role = "cancel";
+          alert('Please fill out all fields')
+          ev.detail.role = 'cancel'
         }
-      },
-    });
+      }
+    })
   }
 
   return (
@@ -140,14 +139,14 @@ function AddIncome() {
         expand="block"
         class="round"
         style={{
-          backgroundColor: "#4ECCA3",
+          backgroundColor: '#4ECCA3'
         }}
-        onClick={() => openModal()}
+        onClick={() => { openModal() }}
       >
         Add Income
       </IonButton>
     </>
-  );
+  )
 }
 
-export default AddIncome;
+export default AddIncome

@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios'
 
-export default async function addExpense(
+export default async function addExpense (
   amount: number,
   categoryId: number,
   date: Date
@@ -11,11 +11,11 @@ export default async function addExpense(
       {
         amount,
         categoryId,
-        date,
+        date
       }
-    );
-    return response.data;
+    )
+    return response.data
   } catch (error: any) {
-    alert(error.response.data.message);
+    alert(error.response.data.message)
   }
 }

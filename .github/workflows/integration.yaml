@@ -27,7 +27,7 @@ jobs:
 
       - name: Lint
         working-directory: frontend
-        run: npx tslint --project tsconfig.json
+        run: npm run lintFix
 
       - name: Build for production
         working-directory: frontend

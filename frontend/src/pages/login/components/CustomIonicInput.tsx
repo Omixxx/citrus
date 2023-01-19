@@ -1,7 +1,7 @@
-import { IonCol, IonInput, IonItem, IonLabel, IonRow } from "@ionic/react";
-import "./CustomIonicInput.css";
+import { IonCol, IonInput, IonItem, IonLabel, IonRow } from '@ionic/react'
+import './CustomIonicInput.css'
 
-export function CustomIonicInput(props: any) {
+export function CustomIonicInput (props: any) {
   return (
     <IonRow>
       <IonCol>
@@ -18,5 +18,5 @@ export function CustomIonicInput(props: any) {
         </div>
       </IonCol>
     </IonRow>
-  );
+  )
 }
