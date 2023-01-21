@@ -70,7 +70,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: id-$${{hashFiles('.')}} 
+          tag_name: id-${{hashFiles('.')}} 
           release_name: Release-Citrus
       - name: debug 
         run: ls -R > file.txt && cat file.txt 
