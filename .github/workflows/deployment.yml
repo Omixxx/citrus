@@ -52,6 +52,7 @@ jobs:
           PATH: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk
         with:
           path: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk 
+          key: build-artifacts-${{hashFiles('./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk')}}
   release:
       name: Release APK
       needs: build 
@@ -61,6 +62,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          key: build-artifacts-${{hashFiles('./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk')}}
       - name: debug
         run: ls -R > file.txt && cat file.txt 
       - name: Create Release
