@@ -46,18 +46,36 @@ jobs:
           CI: false
         run: ionic capacitor build android --release --prod
 
-      - name: Generate the Android App Bundle
-        working-directory: ./frontend/android/
-        run: ./gradlew bundle
-
-      - name: Upload release bundle
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-release
-          path: ./frontend/android/app/build/outputs/bundle/release/app-release.aab
-            
       - name: Upload relese apk 
         uses: actions/upload-artifact@v3
         with:
           name: citrus
           path: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk
+  release:
+      name: Release APK
+      needs: build 
+      if: startsWith(github.ref, 'refs/tags/v')
+      runs-on: ubuntu-latest
+      steps:
+      - name: Download APK from build
+        uses: actions/download-artifact@v3
+        with:
+          name: apk  
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }} 
+      - name: Upload Release APK
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: apk/app-release-unsigned.apk
+          asset_name: Citrus.apk
+          asset_content_type: application/zip  
