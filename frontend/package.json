@@ -58,13 +58,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src --ext .ts,.tsx",
-    "lintFix": "eslint ./src --ext .ts,.tsx --fix"
+    "lint": "npm run eslint && npm run prettier -- --check",
+    "lintFix": "eslint ./src --ext .ts,.tsx --fix",
+    "fmt": "npm run eslint -- --fix && npm run prettier -- --write",
+    "prettier": "prettier \"**/*.ts\"",
+    "eslint": "eslint . --ext .ts"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "@ionic/eslint-config/recommended"
     ]
   },
   "browserslist": {
@@ -81,9 +85,9 @@
   },
   "devDependencies": {
     "@capacitor/cli": "4.5.0",
-    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@ionic/eslint-config": "^0.3.0",
+    "@ionic/prettier-config": "^2.0.0",
     "eslint": "^8.32.0",
-    "eslint-config-standard-with-typescript": "^31.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-promise": "^6.1.1",
