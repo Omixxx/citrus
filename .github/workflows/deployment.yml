@@ -30,25 +30,25 @@ jobs:
 
       - name: Build Ionic App
         working-directory: ./frontend
+        env:
+          CI: false
         run: ionic build
 
       - name: Copy Android
         working-directory: ./frontend
+        env:
+          CI: false
         run: ionic capacitor copy android
 
       - name: Build Android  APK
         working-directory: ./frontend
+        env:
+          CI: false
         run: ionic capacitor build android --release --prod
 
       - name: Generate the Android App Bundle
         working-directory: ./frontend/android/
         run: ./gradlew bundle
-
-      - name: Upload dev APK
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-dev
-          path: apk/app-debug.apk
 
       - name: Upload release bundle
         uses: actions/upload-artifact@v1
