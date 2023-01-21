@@ -17,5 +17,9 @@
     "jsx": "react-jsx"
   },
 
-  "include": ["src", "ionic.config.json"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "capacitor.config.ts"
+  ]
 }
