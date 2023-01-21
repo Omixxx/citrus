@@ -1,0 +1,9 @@
+services:
+    fronted:
+        container_name:
+            fronted
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+        - 3000:3000
