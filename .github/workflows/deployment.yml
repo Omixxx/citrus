@@ -63,17 +63,16 @@ jobs:
         with:
           path: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk
           key: build-artifacts-${{hashFiles('./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk')}}
-      
+      - name: debug
+        run: ls -R > file.txt && cat file.txt 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: id-${{hashFiles('.')}} 
+          tag_name: id-1
           release_name: Release-Citrus
-      - name: debug 
-        run: ls -R > file.txt && cat file.txt 
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1
