@@ -45,21 +45,27 @@ jobs:
         env:
           CI: false
         run: ionic capacitor build android --release --prod
-
-      - name: Upload relese apk 
-        uses: actions/upload-artifact@v3
+      
+      - name: caching the artifacts
+        uses: actions/cache@v2
+        env:
+          PATH: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk
         with:
-          name: citrus
-          path: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          path: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk 
+          key: build-artifacts-${{hashFiles(./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk)}}
   release:
       name: Release APK
       needs: build 
-      runs-on: ubuntu-latest
+      runs-on: ubuntu-22.04 
       steps:
-      - name: Download APK from build
-        uses: actions/download-artifact@v3
+      - name: checkout code 
+        uses: actions/checkout@v2
+      - name: restore cache artifacts 
+        uses: actions/cache@v2
         with:
-          name: citrus  
+          path: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk
+          key: build-artifacts-${{hashFiles(./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk)}}
+      
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
