@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./frontend
-        run: npm install
+        run: npm install && npm install @capacitor/cli
 
       - name: Lint
         working-directory: ./frontend
