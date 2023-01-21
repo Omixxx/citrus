@@ -32,6 +32,10 @@ jobs:
       - name: Lint
         working-directory: ./frontend
         run: npm run lintFix
+      
+      - name: debug
+        working-directory: ./frontend
+        run: ionic info
 
       - name: Build for production
         working-directory: ./frontend
