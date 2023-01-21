@@ -40,5 +40,7 @@ jobs:
 
       - name: Build for production
         working-directory: ./frontend
+        env:
+          CI: false
         run: ionic build 
 
