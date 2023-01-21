@@ -35,5 +35,5 @@ jobs:
 
       - name: Build for production
         working-directory: ./frontend
-        run: ionic build 
+        run: ionic build --verbose
 
