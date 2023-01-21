@@ -20,7 +20,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 19.0.2
+          node-version: 19.x
 
       - name: Install Ionic CLI
         working-directory: ./frontend
