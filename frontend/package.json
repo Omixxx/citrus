@@ -52,7 +52,7 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "eslint ./src --ext .ts,.tsx --fix && react-scripts start",
     "android": "eslint ./src --ext .ts,.tsx --fix && ionic cap run android -l --external",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
