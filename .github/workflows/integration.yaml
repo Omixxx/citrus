@@ -9,25 +9,29 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 19
 
       - name: Install Ionic CLI
         run: npm install -g @ionic/cli
 
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: ./frontend
         run: npm ci
 
       - name: Lint
-        working-directory: frontend
+        working-directory: ./frontend
         run: npm run lintFix
 
+      - name: Repair
+        working-directory: ./frontend
+        run: ionic repair
+
       - name: Build for production
-        working-directory: frontend
+        working-directory: ./frontend
         run: ionic build --prod
 
