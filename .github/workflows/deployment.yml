@@ -34,12 +34,6 @@ jobs:
           CI: false
         run: ionic build
 
-      - name: Copy Android
-        working-directory: ./frontend
-        env:
-          CI: false
-        run: ionic capacitor copy android
-
       - name: Build Android  APK
         working-directory: ./frontend
         env:
