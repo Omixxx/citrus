@@ -94,13 +94,13 @@ const Modal = ({
   )
 }
 
-function AddExpense () {
+function AddExpense() {
   const [present, dismiss] = useIonModal(Modal, {
     onDismiss: (data: string, role: string) => { dismiss(data, role) }
   })
 
   const { setBalance } = useContext(BalanceContext)
-  function openModal () {
+  function openModal() {
     present({
       onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
         if (ev.detail.role === 'confirm') {
@@ -108,7 +108,6 @@ function AddExpense () {
           if (expense && chosenCategoryId && date) {
             const result = await addExpense(expense, chosenCategoryId, date)
             if (result) {
-              alert(result.balance)
               setBalance(result.balance); return
             }
             alert('Error while adding expense'); return

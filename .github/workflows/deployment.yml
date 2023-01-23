@@ -46,31 +46,18 @@ jobs:
           CI: false
         run: ionic capacitor build android --release --prod
       
-      - name: caching the artifacts
-        uses: actions/cache@v2
-        env:
-          PATH: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk
-        with:
-          path: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk 
-  release:
-      name: Release APK
-      needs: build 
-      runs-on: ubuntu-22.04 
-      steps:
-      - name: restore cache artifacts 
-        uses: actions/cache@v2
-        with:
-          path: ./frontend/android/app/build/outputs/apk/release/app-release-unsigned.apk
       - name: debug
         run: ls -R > file.txt && cat file.txt 
+          
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: id-1
+          tag_name: id-${{hashFiles('.')}}
           release_name: Release-Citrus
+      
       - name: Upload Release APK
         id: upload_release_asset
         uses: actions/upload-release-asset@v1.0.1

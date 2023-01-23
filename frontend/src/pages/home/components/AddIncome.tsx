@@ -107,13 +107,13 @@ const Modal = ({
   )
 }
 
-function AddIncome () {
+function AddIncome() {
   const [present, dismiss] = useIonModal(Modal, {
     onDismiss: (data: string, role: string) => { dismiss(data, role) }
   })
 
   const { setBalance } = useContext(BalanceContext)
-  function openModal () {
+  function openModal() {
     present({
       onWillDismiss: async (ev: CustomEvent<OverlayEventDetail>) => {
         if (ev.detail.role === 'confirm') {
@@ -121,7 +121,6 @@ function AddIncome () {
           if (income && chosenCategoryId && date) {
             const result = await addIncome(income, chosenCategoryId, date)
             if (result) {
-              alert(result.balance)
               setBalance(result.balance); return
             }
             alert('error while adding income'); return

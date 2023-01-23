@@ -28,7 +28,7 @@ export const Line = (props: any) => {
     </>
   )
 
-  function generateLines (
+  function generateLines(
     numberOfLines: number,
     lineXPosition: number,
     lineYposition: number
