@@ -25,7 +25,7 @@ const Home: React.FC = () => {
   const history = useHistory()
 
   useEffect(() => {
-    async function init () {
+    async function init() {
       setBalance(await getBalance())
     }
     init().catch(err => { alert(` Error: ${err}`) })
