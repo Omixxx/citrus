@@ -49,8 +49,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: id-${{hashFiles('.')}}
-          release_name: Release-Citrus
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
       
       - name: Upload Release APK
         id: upload_release_asset
