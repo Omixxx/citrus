@@ -1,4 +1,4 @@
-import express from "express";
+eimport express from "express";
 import {
   getExpenseCategories,
   getIncomeCategories,
